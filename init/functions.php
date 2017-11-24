@@ -45,8 +45,31 @@ function tampilMeja(){
 }
 
 function tambahMeja($mNoMeja,$mKodeMeja){
+    global $db;
     $nomeja = cekString($mNoMeja);
     $kodemeja = cekString($mKodeMeja);
-    $sql = "INSERT INTO `meja` (`no_meja`, `kode_meja`) VALUES ('$nomeja', '$kodemeja')";    $result = run($sql);
+    $sql = "INSERT INTO `meja` (`no_meja`, `kode_meja`) VALUES ('$nomeja', '$kodemeja')";    
+    $result = run($sql);
+    if($result){
+        $last_id = mysqli_insert_id($db);
+        return $last_id;
+    }else{
+        return 'error';
+    }
+}
+
+function ubahMeja($mIdMeja,$mNoMeja,$mKodeMeja){
+    $idmeja = cekString($mIdMeja);
+    $nomeja = cekString($mNoMeja);
+    $kodemeja = cekString($mKodeMeja);
+    $sql = "UPDATE `meja` SET `no_meja` = '$nomeja', `kode_meja` = '$kodemeja' WHERE `meja`.`id_meja` = '$idmeja'";    
+    $result = run($sql);
+    return $result;
+}
+
+function hapusMeja($mIdMeja){
+    $idmeja = cekString($mIdMeja);
+    $sql = "DELETE FROM `meja` WHERE `meja`.`id_meja` = '$idmeja'";
+    $result = run($sql);
     return $result;
 }

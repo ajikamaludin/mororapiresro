@@ -1,5 +1,25 @@
 <?php
 include "views/header_admin.php";
+$error = "";
+if(isset($_POST['submit'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    if (!empty(trim($username)) && !empty(trim($password))) {
+		if (login($username, $password)){
+			   $_SESSION['user'] = $username;
+		}else{
+			$error = 'Username dan Password salah';
+		}
+	}else{
+		$error = 'Username dan Password wajib diisi';
+	}
+}
+
+if(isset($_SESSION['user'])){
+    header('Location: dashboard_main.php');
+}
+
+
 ?>
   <body>
     <div class="container-fluid">
@@ -11,18 +31,29 @@ include "views/header_admin.php";
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-body">
-                            <form method="post" action=".">
+                        <?php
+                            if(!empty($error)){
+                        ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?= $error ?>
+                            </div>
+                        <?php
+                            }
+                        ?>
+                        <h4>Admin Panel</h4>
+                            <form method="post" action="">
                                 <div class="form-group">
                                     <div class="input-group">
-                                    <input name="username" class="form-control" placeholder="Username" />
+                                        <input name="username" type="text" class="form-control" placeholder="Username" required/>
                                     </div>
                                     <div class="input-group">
-                                    <input name="password" class="form-control" placeholder="Password" />
+                                        <input name="password" type="password" class="form-control" placeholder="Password" required/>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Masuk</button>
+                                <button type="submit" name="submit" value="ok" class="btn btn-primary">Masuk</button>
                             </form>
                         </div>
+                        
                         </div>
                     </div>
                 </div>

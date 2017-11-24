@@ -1,5 +1,8 @@
 <?php
 include "views/header_admin.php";
+
+cekSession();
+
 ?>
   <body>
     <div class="container-fluid">

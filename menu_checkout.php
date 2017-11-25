@@ -34,21 +34,21 @@ include "views/header.php";
                     <td>2</td>
                     <td>Rp 10.000</td>
                     <td>Rp 20.000</td>
-                    <td><button class="btn">Hapus</button></td>  
+                    <td><button class="btn btn-danger">Hapus</button></td>  
                     </tr>
                     <tr>
                     <td>Nasi Goreng</td>
                     <td>2</td>
                     <td>Rp 10.000</td>
                     <td>Rp 20.000</td>
-                    <td><button class="btn">Hapus</button></td>  
+                    <td><button class="btn btn-danger">Hapus</button></td>  
                     </tr>
                     <tr>
                     <td>Nasi Goreng</td>
                     <td>2</td>
                     <td>Rp 10.000</td>
                     <td>Rp 20.000</td>
-                    <td><button class="btn">Hapus</button></td>  
+                    <td><button class="btn btn-danger">Hapus</button></td>  
                     </tr>
                     <tr>
                     <td></td>
@@ -59,8 +59,9 @@ include "views/header.php";
                     </tr>
                 </tbody>
                 </table>
-                <button class="btn">Batal</button>
-                <button class="btn">Konfirmasi</button>
+                <button class="btn btn-success">Konfirmasi</button>
+                <button class="btn btn-secondary">Batal</button>
+                
             </div>
 
             <div class="col-lg-2"></div>

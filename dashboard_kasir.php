@@ -38,7 +38,7 @@ cekSession();
                         <p>Susu Seger : 2</p>
                     </td>
                     <td>Rp. 20.000 </td>
-                    <td><button class="btn">Bayar</button></td>  
+                    <td><button class="btn btn-primary">Bayar</button></td>  
                     </tr>
                     <tr>
                     <td><h1>21</h1></td>
@@ -48,7 +48,7 @@ cekSession();
                         <p>Susu Seger : 2</p>
                     </td>
                     <td>Rp. 20.000 </td>
-                    <td><button class="btn">Bayar</button></td>  
+                    <td><button class="btn btn-primary">Bayar</button></td>  
                     </tr>
                 </tbody>
                 </table>

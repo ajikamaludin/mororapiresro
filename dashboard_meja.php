@@ -24,7 +24,7 @@ $data = tampilMeja();
                         <li class="breadcrumb-item active" aria-current="page">Meja</li>
                     </ol>
                 </nav>
-                <button class="btn" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalTambah"> Tambah </button>
+                <button class="btn btn-success" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalTambah"> Tambah </button>
                 <table class="table table-striped">
                 <thead>
                     <tr>
@@ -39,11 +39,11 @@ $data = tampilMeja();
                     <td><h1><?= $meja['no_meja'] ?></h1></td>
                     <td><?= $meja['kode_meja'] ?></td>
                     <td>
-                        <div style="float:left;margin-right:5px;" class="btnUbahMeja" data-id-meja="<?= $meja['id_meja'] ?>"  data-no-meja="<?= $meja['no_meja'] ?>" data-kode-meja="<?= $meja['kode_meja'] ?>">
-                            <button class="btn">Ubah</button>
+                        <div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMeja" data-id-meja="<?= $meja['id_meja'] ?>"  data-no-meja="<?= $meja['no_meja'] ?>" data-kode-meja="<?= $meja['kode_meja'] ?>">
+                            <button class="btn  btn-secondary">Ubah</button>
                         </div>
                         <div class="btnHapusMeja" data-id-meja="<?= $meja['id_meja'] ?>">
-                            <button class="btn">Hapus</button>
+                            <button class="btn btn-danger">Hapus</button>
                         </div>
                     </td>  
                     </tr>

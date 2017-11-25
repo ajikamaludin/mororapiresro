@@ -105,7 +105,7 @@ include "views/header.php";
 
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page"><b>Minuman</b></li>
+                        <li class="breadcrumb-item active" aria-current="page">Minuman</li>
                     </ol>
                 </nav>
 
@@ -177,8 +177,9 @@ include "views/header.php";
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Menu </button>
-        <a href="menu_checkout.php"><button type="button" class="btn btn-primary"> Ke Pesanan </button></a>
+        <a href="menu_checkout.php"><button type="button" class="btn btn-secondary"> Ke Pesanan </button></a>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"> Ok </button>
+        
       </div>
     </div>
   </div>

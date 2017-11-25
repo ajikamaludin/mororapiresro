@@ -43,7 +43,7 @@ if(isset($_SESSION['user'])){
                         <h4>Admin Panel</h4>
                             <form method="post" action="">
                                 <div class="form-group">
-                                    <div class="input-group">
+                                    <div class="input-group" style="margin-bottom:5px;">
                                         <input name="username" type="text" class="form-control" placeholder="Username" required/>
                                     </div>
                                     <div class="input-group">

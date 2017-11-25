@@ -34,10 +34,17 @@ include "init/init.php";
             <a class="nav-link" href="dashboard_kasir.php">Kasir</a>
           </li>
           <li>
-            <a class="nav-link" href="dashboard_menu.php">Menu</a>
-          </li>
-          <li>
             <a class="nav-link" href="dashboard_meja.php">Meja</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="dashboard_menu.php">Spesial</a>
+              <a class="dropdown-item" href="dashboard_menu_makanan.php">Makanan</a>
+              <a class="dropdown-item" href="dashboard_menu_minuman.php">Minuman</a>
+            </div>
           </li>
         </ul>
         <ul class="navbar-nav">

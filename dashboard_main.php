@@ -37,7 +37,7 @@ cekSession();
                         <p>Es Teh : 2</p>
                         <p>Susu Seger : 2</p>
                     </td>
-                    <td><button class="btn">Selesai</button></td>  
+                    <td><button class="btn btn-primary">Selesai</button></td>  
                     </tr>
                     <tr>
                     <td><h1>21</h1></td>
@@ -46,7 +46,7 @@ cekSession();
                         <p>Es Teh : 2</p>
                         <p>Susu Seger : 2</p>
                     </td>
-                    <td><button class="btn">Selesai</button></td>  
+                    <td><button class="btn btn-primary">Selesai</button></td>  
                     </tr>
                 </tbody>
                 </table>

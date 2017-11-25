@@ -75,19 +75,19 @@ function hapusMeja($mIdMeja){
 }
 
 function tampilMenuFavorit(){
-    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga` FROM menu WHERE `status`='1' LIMIT 0,4";
+    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `status`='1' LIMIT 0,4";
     $result = run($sql);
     return $result;
 }
 
 function tampilMenuMakanan(){
-    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga` FROM menu WHERE `jenis`='makanan' LIMIT 0,4";
+    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `jenis`='makanan'";
     $result = run($sql);
     return $result;
 }
 
 function tampilMenuMinuman(){
-    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga` FROM menu WHERE `jenis`='minuman' LIMIT 0,4";
+    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `jenis`='minuman'";
     $result = run($sql);
     return $result;
 }

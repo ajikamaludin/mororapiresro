@@ -40,7 +40,7 @@ $data = tampilMeja();
                     <td><?= $meja['kode_meja'] ?></td>
                     <td>
                         <div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMeja" data-id-meja="<?= $meja['id_meja'] ?>"  data-no-meja="<?= $meja['no_meja'] ?>" data-kode-meja="<?= $meja['kode_meja'] ?>">
-                            <button class="btn  btn-secondary">Ubah</button>
+                            <button class="btn btn-secondary">Ubah</button>
                         </div>
                         <div class="btnHapusMeja" data-id-meja="<?= $meja['id_meja'] ?>">
                             <button class="btn btn-danger">Hapus</button>

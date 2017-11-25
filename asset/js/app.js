@@ -40,12 +40,12 @@ $(document).on('click','#simpanMeja',function(){
                         '<td><h1>' + nomeja + '</h1></td >' +
                         '<td>' + kodemeja + '</td>' +
                         '<td>' +
-                            '<div style="float:left;margin-right:5px;" class="btnUbahMeja" data-id-meja="' + idmeja +
+                            '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMeja" data-id-meja="' + idmeja +
                             '" data-no-meja="' + nomeja + '" data-kode-meja="' + kodemeja + '">' +
-                                '<button class="btn">Ubah</button>' +
+                                '<button class="btn btn-secondary">Ubah</button>' +
                             '</div>' +
                             '<div class="btnHapusMeja" data-id-meja="' + idmeja + '">' +
-                                '<button class="btn">Hapus</button>' +
+                                '<button class="btn btn-danger">Hapus</button>' +
                             '</div>' +
                         '</td></tr >');
                 }
@@ -112,12 +112,12 @@ $(document).on('click', '#ubahMeja', function () {
                             '<td><h1>' + nomeja + '</h1></td >' +
                             '<td>' + kodemeja + '</td>' +
                             '<td>' +
-                            '<div style="float:left;margin-right:5px;" class="btnUbahMeja" data-id-meja="' + idmeja +
+                            '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMeja" data-id-meja="' + idmeja +
                             '" data-no-meja="' + nomeja + '" data-kode-meja="' + kodemeja + '">' +
-                                '<button class="btn">Ubah</button>' +
+                                '<button class="btn btn-secondary">Ubah</button>' +
                             '</div>' +
                             '<div class="btnHapusMeja" data-id-meja="' + idmeja + '">' +
-                                '<button class="btn">Hapus</button>' +
+                                '<button class="btn btn-danger">Hapus</button>' +
                             '</div>' +
                             '</td></tr >');
                     } else if (data == "0") {
@@ -181,3 +181,4 @@ $(document).on('click', '.btnHapusMeja', function () {
     }
 });
 //END OF ADMIN MEJA
+// START OF ADMIN MENU MAKANAN

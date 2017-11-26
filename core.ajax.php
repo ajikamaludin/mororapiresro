@@ -30,11 +30,7 @@ if($aksi == "tambah_meja"){
     $stok = $_POST['stok'];
     $gambar = $_POST['gambar'];
 
-    if(tambahMakanan($nama,$harga,$stok,$gambar)){
-        echo "1";
-    }else{
-        echo "0";
-    }
+    echo tambahMakanan($nama,$harga,$stok,$gambar);
 }else if($aksi == "ubah_menu_makan"){
     $id = $_POST['id'];
     $nama = $_POST['nama'];

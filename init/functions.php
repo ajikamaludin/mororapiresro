@@ -100,6 +100,7 @@ function namaGambar($mNama,$mType){
 }
 
 function tambahMakanan($mNama,$mHarga,$mStok,$mGambar){
+    global $db;
     $nama = cekString($mNama);
     $harga = cekString($mHarga);
     $stok = cekString($mStok);
@@ -107,7 +108,12 @@ function tambahMakanan($mNama,$mHarga,$mStok,$mGambar){
 
     $sql = "INSERT INTO `menu` (`nama`, `gambar`, `jenis`, `harga`, `stok`, `status`) VALUES ('$nama', '$gambar', 'makanan', '$harga', '$stok', '0')";
     $result = run($sql);
-    return $result;
+    if($result){
+        $last_id = mysqli_insert_id($db);
+        return $last_id;
+    }else{
+        return 'error';
+    }
 }
 
 function ubahMakanan($mId,$mNama,$mHarga,$mStok,$mGambar){

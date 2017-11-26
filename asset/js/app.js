@@ -236,7 +236,8 @@ $(document).on('click','#simpanMakanan',function(){
                                     type : ext,
                                 },
                                 success: function(data){
-                                    if(data == "0"){
+                                    var id = data;
+                                    if(data == 'error'){
                                         $('#pesanMakanan').text("Maaf Makanan Gagal dimasukan, gambar telah di kirim");
                                         $('#pesanMakanan').show();
                                         setTimeout(function () {
@@ -248,8 +249,24 @@ $(document).on('click','#simpanMakanan',function(){
                                         setTimeout(function () {
                                             $('#pesanMakanan2').hide();
                                         }, 3000);
-                                        // ? Add Element tabel here
-                                        
+                                        $('#tabelMakanan').append('<tr id="makanan_'+ id +'">' + 
+                                                '<th scope="row"><img class="card-img-top" style="width:10rem" src="'+ namaGambar +'" alt="'+ nama +'"></th>'+
+                                                '<td>' + nama + '</td>' + 
+                                                '<td>Rp. '+ harga +' / Porsi</td>' +
+                                                '<td>'+ stok +'</td>' + 
+                                                '<td>' +
+                                                    '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMakanan"' +
+                                                    'data-id-makanan="'+ id +'"' +
+                                                    'data-nama-makanan="'+ nama +'" ' +
+                                                    'data-harga-makanan="' + harga + '" ' +
+                                                    'data-stok-makanan="'+ stok +'" ' +
+                                                    'data-gambar-makanan="' + namaGambar + '"' +
+                                                    '>' +
+                                                        '<button class="btn  btn-secondary">Ubah</button>' +
+                                                    '</div>' +
+                                                    '<div class="btnHapusMakanan" data-id-makanan="'+ id +'" >' +
+                                                        '<button class="btn btn-danger">Hapus</button>' +
+                                                    '</div></td></tr>');
                                     }
                                 },
                                 error: function(){
@@ -279,12 +296,13 @@ $(document).on('click','.btnUbahMakanan',function(){
     var nama = $(this).attr('data-nama-makanan');
     var harga = $(this).attr('data-harga-makanan');
     var stok = $(this).attr('data-stok-makanan');
+    var namaGambar = $(this).attr('data-gambar-makanan');
     $('#modalUbahMakanan').modal('show');
     $('#inputUbahIdMakanan').val(id);
     $('#inputUbahNamaMakanan').val(nama);
     $('#inputUbahHargaMakanan').val(harga);
     $('#inputUbahStokMakanan').val(stok);
-
+    $('#inputUbahGambarMakanan').val(namaGambar);
 });
 
 //Simpan Perubahan Makanan
@@ -293,6 +311,7 @@ $(document).on('click','#ubahMakanan',function(){
     var nama = $('#inputUbahNamaMakanan').val();
     var harga = $('#inputUbahHargaMakanan').val();
     var stok = $('#inputUbahStokMakanan').val();
+    var namaGambar = $('#inputUbahGambarMakanan').val();
     if (id == ''){
         $('#pesanUbahMakanan').text("Maaf terjadi kesalahan di sistem");
         $('#pesanUbahMakanan').show();
@@ -338,7 +357,26 @@ $(document).on('click','#ubahMakanan',function(){
                              setTimeout(function () {
                                  $('#pesanUbahMakanan2').hide();
                              }, 3000);
-                             // ? Remove and Add Element tabel here
+                             
+                             $('#makanan_'+id).remove();
+                             $('#tabelMakanan').append('<tr id="makanan_' + id + '">' +
+                                 '<th scope="row"><img class="card-img-top" style="width:10rem" src="' + namaGambar + '" alt="' + nama + '"></th>' +
+                                 '<td>' + nama + '</td>' +
+                                 '<td>Rp. ' + harga + ' / Porsi</td>' +
+                                 '<td>' + stok + '</td>' +
+                                 '<td>' +
+                                 '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMakanan"' +
+                                 'data-id-makanan="' + id + '"' +
+                                 'data-nama-makanan="' + nama + '" ' +
+                                 'data-harga-makanan="' + harga + '" ' +
+                                 'data-stok-makanan="' + stok + '" ' +
+                                 'data-gambar-makanan="' + namaGambar + '"' +
+                                 '>' +
+                                 '<button class="btn  btn-secondary">Ubah</button>' +
+                                 '</div>' +
+                                 '<div class="btnHapusMakanan" data-id-makanan="' + id + '" >' +
+                                 '<button class="btn btn-danger">Hapus</button>' +
+                                 '</div></td></tr>');
                          }
                      },
                      error: function () {
@@ -393,6 +431,25 @@ $(document).on('click','#ubahMakanan',function(){
                                             $('#pesanUbahMakanan2').hide();
                                         }, 3000);
                                         // ? Remove and Add Element tabel here
+                                        $('#makanan_' + id).remove();
+                                        $('#tabelMakanan').append('<tr id="makanan_' + id + '">' +
+                                            '<th scope="row"><img class="card-img-top" style="width:10rem" src="' + namaGambar + '" alt="' + nama + '"></th>' +
+                                            '<td>' + nama + '</td>' +
+                                            '<td>Rp. ' + harga + ' / Porsi</td>' +
+                                            '<td>' + stok + '</td>' +
+                                            '<td>' +
+                                            '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMakanan"' +
+                                            'data-id-makanan="' + id + '"' +
+                                            'data-nama-makanan="' + nama + '" ' +
+                                            'data-harga-makanan="' + harga + '" ' +
+                                            'data-stok-makanan="' + stok + '" ' +
+                                            'data-gambar-makanan="' + namaGambar + '"' +
+                                            '>' +
+                                            '<button class="btn  btn-secondary">Ubah</button>' +
+                                            '</div>' +
+                                            '<div class="btnHapusMakanan" data-id-makanan="' + id + '" >' +
+                                            '<button class="btn btn-danger">Hapus</button>' +
+                                            '</div></td></tr>');
                                     }
                                 },
                                 error: function () {

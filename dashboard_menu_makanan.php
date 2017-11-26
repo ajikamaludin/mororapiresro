@@ -164,6 +164,7 @@ $data = tampilMenuMakanan();
                 <input type="text" class="form-control" id="inputUbahStokMakanan">
             </div>
             <input type="text" class="form-control" id="inputUbahIdMakanan" style="display:none">
+            <input type="text" class="form-control" id="inputUbahGambarMakanan" style="display:none">
         </div>
       </div>
       <div class="modal-footer">

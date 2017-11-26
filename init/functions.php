@@ -109,3 +109,27 @@ function tambahMakanan($mNama,$mHarga,$mStok,$mGambar){
     $result = run($sql);
     return $result;
 }
+
+function ubahMakanan($mId,$mNama,$mHarga,$mStok,$mGambar){
+    $id = cekString($mId);
+    $nama = cekString($mNama);
+    $harga = cekString($mHarga);
+    $stok = cekString($mStok);
+    $gambar = cekString($mGambar);
+    if(empty($gambar)){
+        $sql = "UPDATE `menu` SET `nama` = '$nama', `harga` = '$harga', `stok` = '$stok' WHERE `menu`.`id_menu` = '$id'";
+        $result = run($sql);
+        return $result;
+    }else{
+        $sql = "UPDATE `menu` SET `nama` = '$nama',`gambar` = '$gambar', `harga` = '$harga', `stok` = '$stok' WHERE `menu`.`id_menu` = '$id'";
+        $result = run($sql);
+        return $result;
+    }
+}
+
+function hapusMakanan($mId){
+    $id = cekString($mId);
+    $sql = "DELETE FROM `menu` WHERE `menu`.`id_menu` = $id";
+    $result = run($sql);
+    return $result;
+}

@@ -12,8 +12,11 @@ $data = tampilMenuMakanan();
             <div class="col-lg-2"></div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" style="margin-top:70px">
-                <div class="alert alert-success" role="alert" style="display:none;">
-                    Ini adalah halaman dashboard menu untuk melihat menu meng edit dan menamah 
+                <div id="pesanMakananDash" class="alert alert-success" role="alert" style="display:none;">
+                    
+                </div>
+                <div id="pesanMakananDash2" class="alert alert-danger" role="alert" style="display:none;">
+                    
                 </div>
                 
                 <nav aria-label="breadcrumb" role="navigation">
@@ -77,7 +80,7 @@ $data = tampilMenuMakanan();
         <div id="pesanMakanan" class="alert alert-danger" role="alert" style="display:none">
             
         </div>
-        <div id="pesanMaknan2" class="alert alert-primary" role="alert" style="display:none">
+        <div id="pesanMakanan2" class="alert alert-primary" role="alert" style="display:none">
             
         </div>
         <div class="form-group row">

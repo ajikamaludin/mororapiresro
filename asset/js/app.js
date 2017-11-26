@@ -249,9 +249,10 @@ $(document).on('click','#simpanMakanan',function(){
                                             $('#pesanMakanan2').hide();
                                         }, 3000);
                                         // ? Add Element tabel here
+                                        
                                     }
                                 },
-                                error: function(data){
+                                error: function(){
                                     $('#pesanMakanan').text("Koneksi Gagal, Coba Lagi");
                                     $('#pesanMakanan').show();
                                     setTimeout(function () {
@@ -261,7 +262,7 @@ $(document).on('click','#simpanMakanan',function(){
                             });
                         }
                 },
-                error: function (data) {
+                error: function () {
                     $('#pesanMakanan').text("Koneksi Gagal, Coba Lagi");
                     $('#pesanMakanan').show();
                     setTimeout(function () {
@@ -292,13 +293,174 @@ $(document).on('click','#ubahMakanan',function(){
     var nama = $('#inputUbahNamaMakanan').val();
     var harga = $('#inputUbahHargaMakanan').val();
     var stok = $('#inputUbahStokMakanan').val();
-    if ((id == '') && (harga == '') && (stok == '') && (nama == '')) {
-        $('#pesanMakanan').text("Nama,Harga dan Stok Harus Dimasukan");
-        $('#pesanMakanan').show();
+    if (id == ''){
+        $('#pesanUbahMakanan').text("Maaf terjadi kesalahan di sistem");
+        $('#pesanUbahMakanan').show();
         setTimeout(function () {
-            $('#pesanMakanan').hide();
+            $('#pesanUbahMakanan').hide();
         }, 3000);
-    } else {
-        
+    }else{ 
+        if((harga == '') && (stok == '') && (nama == '')) {
+            $('#pesanUbahMakanan').text("Nama,Harga dan Stok Harus Dimasukan");
+            $('#pesanUbahMakanan').show();
+            setTimeout(function () {
+                $('#pesanUbahMakanan').hide();
+            }, 3000);
+        } else {
+            //Upload Gambar
+            var gambar = new FormData;
+            gambar.append('file', $('#ubahfileGambar')[0].files[0]);
+            var imgname = $('#ubahfileGambar').val();
+            var ext = imgname.substr((imgname.lastIndexOf('.') + 1));
+            console.log(imgname);
+            if (imgname == '') {
+                 //Memasukan Perubahan Makanan Ke Database
+                 $.ajax({
+                     method: 'POST',
+                     url: 'core.ajax.php',
+                     data: {
+                         aksi: 'ubah_menu_makan',
+                         id : id,
+                         nama: nama,
+                         harga: harga,
+                         stok: stok,
+                     },
+                     success: function (data) {
+                         if (data == "0") {
+                             $('#pesanUbahMakanan').text("Maaf Makanan Gagal diubah");
+                             $('#pesanUbahMakanan').show();
+                             setTimeout(function () {
+                                 $('#pesanUbahMakanan').hide();
+                             }, 3000);
+                         } else {
+                             $('#pesanUbahMakanan2').text("Makanan Telah di ubah");
+                             $('#pesanUbahMakanan2').show();
+                             setTimeout(function () {
+                                 $('#pesanUbahMakanan2').hide();
+                             }, 3000);
+                             // ? Remove and Add Element tabel here
+                         }
+                     },
+                     error: function () {
+                         $('#pesanUbahMakanan').text("Koneksi Gagal, Coba Lagi");
+                         $('#pesanUbahMakanan').show();
+                         setTimeout(function () {
+                             $('#pesanMakanan').hide();
+                         }, 3000);
+                     },
+                 });
+            }else{
+                $.ajax({
+                    method: "POST",
+                    url: "image.ajax.php",
+                    data: gambar,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var namaGambar = data;
+                        if (namaGambar == "0") {
+                            $('#pesanUbahMakanan').text("Maaf Makanan Gagal diubah");
+                            $('#pesanUbahMakanan').show();
+                            setTimeout(function () {
+                                $('#pesanUbahMakanan').hide();
+                            }, 3000);
+                        } else {
+                            //Memasukan Makanan Ke Database
+                            console.log(namaGambar);
+                            $.ajax({
+                                method: 'POST',
+                                url: 'core.ajax.php',
+                                data: {
+                                    aksi: 'ubah_menu_makan',
+                                    id: id,
+                                    nama: nama,
+                                    harga: harga,
+                                    stok: stok,
+                                    gambar: namaGambar,
+                                },
+                                success: function (data) {
+                                    if (data == "0") {
+                                        $('#pesanUbahMakanan').text("Maaf Makanan Gagal diubah");
+                                        $('#pesanUbahMakanan').show();
+                                        setTimeout(function () {
+                                            $('#pesanUbahMakanan').hide();
+                                        }, 3000);
+                                    } else {
+                                        $('#pesanUbahMakanan2').text("Makanan Telah di ubah");
+                                        $('#pesanUbahMakanan2').show();
+                                        setTimeout(function () {
+                                            $('#pesanUbahMakanan2').hide();
+                                        }, 3000);
+                                        // ? Remove and Add Element tabel here
+                                    }
+                                },
+                                error: function () {
+                                    $('#pesanUbahMakanan').text("Koneksi Gagal, Coba Lagi");
+                                    $('#pesanUbahMakanan').show();
+                                    setTimeout(function () {
+                                        $('#pesanMakanan').hide();
+                                    }, 3000);
+                                },
+                            });
+                        }
+                    },
+                    error: function () {
+                        $('#pesanUbahMakanan').text("Koneksi Gagal, Coba Lagi");
+                        $('#pesanUbahMakanan').show();
+                        setTimeout(function () {
+                            $('#pesanUbahMakanan').hide();
+                        }, 3000);
+                    },
+                });
+            }
+        }
+    }
+});
+
+// Hapus Menu Makanan
+$(document).on('click','.btnHapusMakanan',function(){
+    var id = $(this).attr('data-id-makanan');
+    ask = confirm('Anda Yakin akan menghapus menu ?');
+    if(id == ''){
+        $('#pesanMakananDash2').text("Maaf Terjadi Kesalahan di sistem");
+        $('#pesanMakananDash2').show();
+        setTimeout(function () {
+            $('#pesanMakananDash2').hide();
+        }, 3000);
+    }else{
+        if(ask){
+             $.ajax({
+                method: 'POST',
+                url: 'core.ajax.php',
+                data: {
+                    aksi: 'hapus_menu_makan',
+                    id: id
+                },
+                success: function (data) {
+                    if(data == "0"){
+                        $('#pesanMakananDash2').text("Makanan Gagal dihapus");
+                        $('#pesanMakananDash2').show();
+                        setTimeout(function () {
+                            $('#pesanMakananDash2').hide();
+                        }, 3000);
+                    }else{
+                        $('#pesanMakananDash').text("Makanan Berhasil dihapus");
+                        $('#pesanMakananDash').show();
+                        setTimeout(function () {
+                            $('#pesanMakananDash').hide();
+                        }, 3000);
+                        $('#makanan_'+id).remove();
+                    }
+                },
+                error: function(){
+                        $('#pesanMakananDash2').text("Koneksi Gagal, Coba Lagi");
+                        $('#pesanMakananDash2').show();
+                        setTimeout(function () {
+                            $('#pesanMakananDash2').hide();
+                        }, 3000);
+                }
+            });
+        }
     }
 });

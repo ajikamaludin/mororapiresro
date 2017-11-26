@@ -182,3 +182,50 @@ $(document).on('click', '.btnHapusMeja', function () {
 });
 //END OF ADMIN MEJA
 // START OF ADMIN MENU MAKANAN
+//tambah menu makanan baru
+$(document).on('click','#simpanMakanan',function(){
+
+    //Upload Gambar
+    var gambar = new FormData;
+    gambar.append('file',$('#fileGambar')[0].files[0]);
+    var imgname = $('input[type=file]').val();
+    if(imgname == ''){
+        $('#pesanMakanan').text("Gambar Harus Dimasukan");
+        $('#pesanMakanan').show();
+        setTimeout(function () {
+            $('#pesanMakanan').hide();
+        }, 3000);
+    }else{
+         var nama = $('#inputNamaMakanan').val();
+         var harga = $('#inputHargaMakanan').val();
+         var stok = $('#inputStokMakanan').val();
+        $.ajax({
+            method: "POST",
+            url: "image.ajax.php",
+            data: gambar,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data);
+                //Memasukan Makanan Ke Database
+                $.ajax({
+                    method: 'POST',
+                    url: 'core.ajax.php',
+                    data: {
+                        
+                    },
+                    success: function(data){
+
+                    },
+                    error: function(data){
+
+                    }
+                });
+            },
+            error: function (data) {
+                console.log('ERROR' + data);
+            },
+        });
+    }
+})

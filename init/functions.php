@@ -91,3 +91,10 @@ function tampilMenuMinuman(){
     $result = run($sql);
     return $result;
 }
+
+function namaGambar($mNama,$mType){
+    $namaGambarPotong = substr($mNama, 0,5);
+    $type = substr($mType, 6,3);
+    $nama = time().'_'.$namaGambarPotong.".".$type;
+    return $nama;
+}

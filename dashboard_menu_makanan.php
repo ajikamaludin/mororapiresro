@@ -62,7 +62,7 @@ $data = tampilMenuMakanan();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Manu Makanan Baru</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Menu Makanan Baru</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -97,7 +97,7 @@ $data = tampilMenuMakanan();
             <label for="inputGambarMakanan" class="col-sm-3 col-form-label">Gambar</label>
             <div class="col-sm-9">
             <label class="custom-file">
-                <input type="file" id="file2" class="custom-file-input">
+                <input type="file" id="fileGambar" class="custom-file-input" require>
             <span class="custom-file-control"></span>
             </div>
         </label>

@@ -24,6 +24,8 @@ if($aksi == "tambah_meja"){
     }else{
         echo "0";
     }
+}else if($aksi == "tambah_menu_makan"){
+    var_dump($_FILES['mgambar']);
 }else{
     echo "0";
 }

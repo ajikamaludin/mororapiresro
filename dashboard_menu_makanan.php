@@ -43,10 +43,10 @@ $data = tampilMenuMakanan();
                     <td>Rp. <?= $makanan['harga'] ?> / Porsi</td>
                     <td><?= $makanan['stok'] ?></td>
                     <td>
-                        <div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMeja">
+                        <div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMakanan">
                             <button class="btn  btn-secondary">Ubah</button>
                         </div>
-                        <div class="btnHapusMeja">
+                        <div class="btnHapusMakanan">
                             <button class="btn btn-danger">Hapus</button>
                         </div>
                     </td>
@@ -83,7 +83,7 @@ $data = tampilMenuMakanan();
             </div>
         </label>
         </div>
-        
+
         <div class="form-group row">
             <label for="inputNamaMakanan" class="col-sm-3 col-form-label">Nama</label>
             <div class="col-sm-9">

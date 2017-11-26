@@ -272,4 +272,33 @@ $(document).on('click','#simpanMakanan',function(){
         }
     }
 });
-//Ubah Makanan
+//Ubah Makanan Tringger Modal
+$(document).on('click','.btnUbahMakanan',function(){
+    var id = $(this).attr('data-id-makanan');
+    var nama = $(this).attr('data-nama-makanan');
+    var harga = $(this).attr('data-harga-makanan');
+    var stok = $(this).attr('data-stok-makanan');
+    $('#modalUbahMakanan').modal('show');
+    $('#inputUbahIdMakanan').val(id);
+    $('#inputUbahNamaMakanan').val(nama);
+    $('#inputUbahHargaMakanan').val(harga);
+    $('#inputUbahStokMakanan').val(stok);
+
+});
+
+//Simpan Perubahan Makanan
+$(document).on('click','#ubahMakanan',function(){
+    var id = $('#inputUbahIdMakanan').val();
+    var nama = $('#inputUbahNamaMakanan').val();
+    var harga = $('#inputUbahHargaMakanan').val();
+    var stok = $('#inputUbahStokMakanan').val();
+    if ((id == '') && (harga == '') && (stok == '') && (nama == '')) {
+        $('#pesanMakanan').text("Nama,Harga dan Stok Harus Dimasukan");
+        $('#pesanMakanan').show();
+        setTimeout(function () {
+            $('#pesanMakanan').hide();
+        }, 3000);
+    } else {
+        
+    }
+});

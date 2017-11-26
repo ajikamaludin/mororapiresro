@@ -85,6 +85,7 @@ $data = tampilMeja();
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button> -->
         <button type="button" class="btn btn-primary" id="simpanMeja">Simpan</button>
+        <div id="loadingSimpan" style="display:none;">Menggugah . . .</div>
       </div>
     </div>
   </div>
@@ -121,8 +122,8 @@ $data = tampilMeja();
         </div>
       </div>
       <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button> -->
         <button type="button" class="btn btn-primary" id="ubahMeja">Simpan</button>
+        <div id="loadingSimpan2" style="display:none;">Menggugah . . .</div>
       </div>
     </div>
   </div>

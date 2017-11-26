@@ -12,6 +12,10 @@ $(document).on('click','#simpanMeja',function(){
         },3000);
     }else{
         $.ajax({
+            beforeSend: function () {
+                $('#simpanMeja').hide();
+                $('#loadingSimpan').show();
+            },
             method : "POST",
             url: "core.ajax.php",
             data : {
@@ -56,7 +60,13 @@ $(document).on('click','#simpanMeja',function(){
                 setTimeout(function () {
                     $('#pesan').hide();
                 }, 3000);
-            }
+                $('#simpanMeja').show();
+                $('#loadingSimpan').hide();
+            },
+            complete: function () {
+                $('#simpanMeja').show();
+                $('#loadingSimpan').hide();
+            },
         });
     }
 });
@@ -92,6 +102,10 @@ $(document).on('click', '#ubahMeja', function () {
             }, 3000);
         } else {
             $.ajax({
+                beforeSend: function () {
+                    $('#ubahMeja').hide();
+                    $('#loadingSimpan2').show();
+                },
                 method: "POST",
                 url: "core.ajax.php",
                 data: {
@@ -135,7 +149,13 @@ $(document).on('click', '#ubahMeja', function () {
                     setTimeout(function () {
                         $('#pesanUbah').hide();
                     }, 3000);
-                }
+                    $('#ubahMeja').show();
+                    $('#loadingSimpan2').hide();
+                },
+                complete: function () {
+                    $('#ubahMeja').show();
+                    $('#loadingSimpan2').hide();
+                },
             });
         }
     }
@@ -208,6 +228,10 @@ $(document).on('click','#simpanMakanan',function(){
              }, 3000);
          }else{
             $.ajax({
+                beforeSend: function(){
+                    $('#simpanMakanan').hide();
+                    $('#loadingSimpan').show();
+                },
                 method: "POST",
                 url: "image.ajax.php",
                 data: gambar,
@@ -244,6 +268,9 @@ $(document).on('click','#simpanMakanan',function(){
                                             $('#pesanMakanan').hide();
                                         }, 3000);
                                     }else{
+                                        $('#inputNamaMakanan').val('');
+                                        $('#inputHargaMakanan').val('');
+                                        $('#inputStokMakanan').val('');
                                         $('#pesanMakanan2').text("Makanan Telah di tambahkan");
                                         $('#pesanMakanan2').show();
                                         setTimeout(function () {
@@ -285,6 +312,12 @@ $(document).on('click','#simpanMakanan',function(){
                     setTimeout(function () {
                         $('#pesanMakanan').hide();
                     }, 3000);
+                    $('#simpanMakanan').show();
+                    $('#loadingSimpan').hide();
+                },
+                complete: function () {
+                    $('#simpanMakanan').show();
+                    $('#loadingSimpan').hide();
                 },
             });
         }
@@ -335,6 +368,10 @@ $(document).on('click','#ubahMakanan',function(){
             if (imgname == '') {
                  //Memasukan Perubahan Makanan Ke Database
                  $.ajax({
+                     beforeSend: function(){
+                        $('#ubahMakanan').hide();
+                        $('#loadingSimpan2').show();
+                     },
                      method: 'POST',
                      url: 'core.ajax.php',
                      data: {
@@ -385,10 +422,20 @@ $(document).on('click','#ubahMakanan',function(){
                          setTimeout(function () {
                              $('#pesanMakanan').hide();
                          }, 3000);
+                         $('#ubahMakanan').show();
+                         $('loadingSimpan2').hide();
+                     },
+                     complete: function () {
+                         $('#ubahMakanan').show();
+                         $('#loadingSimpan2').hide();
                      },
                  });
             }else{
                 $.ajax({
+                    beforeSend: function () {
+                        $('#ubahMakanan').hide();
+                        $('#loadingSimpan2').show();
+                    },
                     method: "POST",
                     url: "image.ajax.php",
                     data: gambar,
@@ -468,6 +515,12 @@ $(document).on('click','#ubahMakanan',function(){
                         setTimeout(function () {
                             $('#pesanUbahMakanan').hide();
                         }, 3000);
+                        $('#ubahMakanan').show();
+                        $('#loadingSimpan2').hide();
+                    },
+                    complete: function () {
+                        $('#ubahMakanan').show();
+                        $('#loadingSimpan2').hide();
                     },
                 });
             }
@@ -549,6 +602,10 @@ $(document).on('click', '#simpanMinuman', function () {
             }, 3000);
         } else {
             $.ajax({
+                beforeSend: function(){
+                    $('#simpanMinuman').hide();
+                    $('#loadingSimpan').show();
+                },
                 method: "POST",
                 url: "image.ajax.php",
                 data: gambar,
@@ -586,6 +643,9 @@ $(document).on('click', '#simpanMinuman', function () {
                                         $('#pesanMinuman').hide();
                                     }, 3000);
                                 } else {
+                                    $('#inputNamaMinuman').val('');
+                                    $('#inputHargaMinuman').val('');
+                                    $('#inputStokMinuman').val('');
                                     $('#pesanMinuman2').text("Minuman Telah di tambahkan");
                                     $('#pesanMinuman2').show();
                                     setTimeout(function () {
@@ -617,7 +677,9 @@ $(document).on('click', '#simpanMinuman', function () {
                                 setTimeout(function () {
                                     $('#pesanMinuman').hide();
                                 }, 3000);
-                            }
+                                $('#simpanMinuman').show();
+                                $('#loadingSimpan').hide();
+                            } 
                         });
                     }
                 },
@@ -627,6 +689,12 @@ $(document).on('click', '#simpanMinuman', function () {
                     setTimeout(function () {
                         $('#pesanMinuman').hide();
                     }, 3000);
+                    $('#simpanMinuman').show();
+                    $('#loadingSimpan').hide();
+                },
+                complete: function () {
+                    $('#simpanMinuman').show();
+                    $('#loadingSimpan').hide();
                 },
             });
         }
@@ -677,6 +745,10 @@ $(document).on('click', '#ubahMinuman', function () {
             if (imgname == '') {
                 //Memasukan Perubahan Minuman Ke Database
                 $.ajax({
+                    beforeSend: function(){
+                        $('#ubahMinuman').hide();
+                        $('#loadingSimpan2').show();
+                    },
                     method: 'POST',
                     url: 'core.ajax.php',
                     data: {
@@ -727,10 +799,20 @@ $(document).on('click', '#ubahMinuman', function () {
                         setTimeout(function () {
                             $('#pesanMinuman').hide();
                         }, 3000);
+                        $('#ubahMinuman').show();
+                        $('#loadingSimpan2').hide();
+                    },
+                    complete: function () {
+                        $('#ubahMinuman').show();
+                        $('#loadingSimpan2').hide();
                     },
                 });
             } else {
                 $.ajax({
+                    beforeSend: function () {
+                        $('#ubahMinuman').hide();
+                        $('#loadingSimpan2').show();
+                    },
                     method: "POST",
                     url: "image.ajax.php",
                     data: gambar,
@@ -799,6 +881,8 @@ $(document).on('click', '#ubahMinuman', function () {
                                     setTimeout(function () {
                                         $('#pesanMinuman').hide();
                                     }, 3000);
+                                    $('#ubahMinuman').show();
+                                    $('#loadingSimpan2').hide();
                                 },
                             });
                         }
@@ -809,6 +893,12 @@ $(document).on('click', '#ubahMinuman', function () {
                         setTimeout(function () {
                             $('#pesanUbahMinuman').hide();
                         }, 3000);
+                        $('#ubahMinuman').show();
+                        $('#loadingSimpan2').hide();
+                    },
+                    complete: function () {
+                        $('#ubahMinuman').show();
+                        $('#loadingSimpan2').hide();
                     },
                 });
             }

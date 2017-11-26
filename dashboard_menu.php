@@ -57,5 +57,3 @@ $minumans = tampilMenuMinuman();
 <?php
     include "views/footer.php";
 ?>
-
-// makanan dan minuman ditampilkan dalam bentuk tabel

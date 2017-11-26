@@ -115,6 +115,7 @@ $data = tampilMenuMakanan();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="simpanMakanan">Simpan</button>
+        <div id="loadingSimpan" style="display:none;">Menggugah . . .</div>
       </div>
     </div>
   </div>
@@ -169,6 +170,7 @@ $data = tampilMenuMakanan();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="ubahMakanan">Simpan</button>
+        <div id="loadingSimpan2" style="display:none;">Menggugah . . .</div>
       </div>
     </div>
   </div>

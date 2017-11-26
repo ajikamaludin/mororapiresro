@@ -237,7 +237,7 @@ $(document).on('click','#simpanMakanan',function(){
                                 },
                                 success: function(data){
                                     var id = data;
-                                    if(data == 'error'){
+                                    if(data == 'error' || data == '0'){
                                         $('#pesanMakanan').text("Maaf Makanan Gagal dimasukan, gambar telah di kirim");
                                         $('#pesanMakanan').show();
                                         setTimeout(function () {
@@ -516,6 +516,346 @@ $(document).on('click','.btnHapusMakanan',function(){
                         setTimeout(function () {
                             $('#pesanMakananDash2').hide();
                         }, 3000);
+                }
+            });
+        }
+    }
+});
+// END OF ADMIN MENU MAKANAN
+// START OF ADMIN MENU MINUMAN
+//tambah menu minuman baru
+$(document).on('click', '#simpanMinuman', function () {
+
+    //Upload Gambar
+    var gambar = new FormData;
+    gambar.append('file', $('#fileGambar')[0].files[0]);
+    var imgname = $('input[type=file]').val();
+    var ext = imgname.substr((imgname.lastIndexOf('.') + 1));
+    if (imgname == '') {
+        $('#pesanMinuman').text("Gambar Harus Dimasukan");
+        $('#pesanMinuman').show();
+        setTimeout(function () {
+            $('#pesanMinuman').hide();
+        }, 3000);
+    } else {
+        var nama = $('#inputNamaMinuman').val();
+        var harga = $('#inputHargaMinuman').val();
+        var stok = $('#inputStokMinuman').val();
+        if ((harga == '') && (stok == '') && (nama == '')) {
+            $('#pesanMinuman').text("Nama,Harga dan Stok Harus Dimasukan");
+            $('#pesanMinuman').show();
+            setTimeout(function () {
+                $('#pesanMinuman').hide();
+            }, 3000);
+        } else {
+            $.ajax({
+                method: "POST",
+                url: "image.ajax.php",
+                data: gambar,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var namaGambar = data;
+                    if (namaGambar == "0") {
+                        $('#pesanMinuman').text("Maaf Minuman Gagal dimasukan");
+                        $('#pesanMinuman').show();
+                        setTimeout(function () {
+                            $('#pesanMinuman').hide();
+                        }, 3000);
+                    } else {
+                        //Memasukan Minuman Ke Database
+                        $.ajax({
+                            method: 'POST',
+                            url: 'core.ajax.php',
+                            data: {
+                                aksi: 'tambah_menu_minum',
+                                nama: nama,
+                                harga: harga,
+                                stok: stok,
+                                gambar: namaGambar,
+                                type: ext,
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                var id = data;
+                                if (data == 'error' || data == '0') {
+                                    $('#pesanMinuman').text("Maaf Minuman Gagal dimasukan, gambar telah di kirim");
+                                    $('#pesanMinuman').show();
+                                    setTimeout(function () {
+                                        $('#pesanMinuman').hide();
+                                    }, 3000);
+                                } else {
+                                    $('#pesanMinuman2').text("Minuman Telah di tambahkan");
+                                    $('#pesanMinuman2').show();
+                                    setTimeout(function () {
+                                        $('#pesanMinuman2').hide();
+                                    }, 3000);
+                                    $('#tabelMinuman').append('<tr id="minuman_' + id + '">' +
+                                        '<th scope="row"><img class="card-img-top" style="width:10rem" src="' + namaGambar + '" alt="' + nama + '"></th>' +
+                                        '<td>' + nama + '</td>' +
+                                        '<td>Rp. ' + harga + ' / Porsi</td>' +
+                                        '<td>' + stok + '</td>' +
+                                        '<td>' +
+                                        '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMinuman"' +
+                                        'data-id-minuman="' + id + '"' +
+                                        'data-nama-minuman="' + nama + '" ' +
+                                        'data-harga-minuman="' + harga + '" ' +
+                                        'data-stok-minuman="' + stok + '" ' +
+                                        'data-gambar-minuman="' + namaGambar + '"' +
+                                        '>' +
+                                        '<button class="btn  btn-secondary">Ubah</button>' +
+                                        '</div>' +
+                                        '<div class="btnHapusMinuman" data-id-minuman="' + id + '" >' +
+                                        '<button class="btn btn-danger">Hapus</button>' +
+                                        '</div></td></tr>');
+                                }
+                            },
+                            error: function () {
+                                $('#pesanMinuman').text("Koneksi Gagal, Coba Lagi");
+                                $('#pesanMinuman').show();
+                                setTimeout(function () {
+                                    $('#pesanMinuman').hide();
+                                }, 3000);
+                            }
+                        });
+                    }
+                },
+                error: function () {
+                    $('#pesanMinuman').text("Koneksi Gagal, Coba Lagi");
+                    $('#pesanMinuman').show();
+                    setTimeout(function () {
+                        $('#pesanMinuman').hide();
+                    }, 3000);
+                },
+            });
+        }
+    }
+});
+//Ubah Minuman Tringger Modal
+$(document).on('click', '.btnUbahMinuman', function () {
+    var id = $(this).attr('data-id-minuman');
+    var nama = $(this).attr('data-nama-minuman');
+    var harga = $(this).attr('data-harga-minuman');
+    var stok = $(this).attr('data-stok-minuman');
+    var namaGambar = $(this).attr('data-gambar-minuman');
+    $('#modalUbahMinuman').modal('show');
+    $('#inputUbahIdMinuman').val(id);
+    $('#inputUbahNamaMinuman').val(nama);
+    $('#inputUbahHargaMinuman').val(harga);
+    $('#inputUbahStokMinuman').val(stok);
+    $('#inputUbahGambarMinuman').val(namaGambar);
+});
+
+//Simpan Perubahan Makanan
+$(document).on('click', '#ubahMinuman', function () {
+    var id = $('#inputUbahIdMinuman').val();
+    var nama = $('#inputUbahNamaMinuman').val();
+    var harga = $('#inputUbahHargaMinuman').val();
+    var stok = $('#inputUbahStokMinuman').val();
+    var namaGambar = $('#inputUbahGambarMinuman').val();
+    if (id == '') {
+        $('#pesanUbahMinuman').text("Maaf terjadi kesalahan di sistem");
+        $('#pesanUbahMinuman').show();
+        setTimeout(function () {
+            $('#pesanUbahMinuman').hide();
+        }, 3000);
+    } else {
+        if ((harga == '') && (stok == '') && (nama == '')) {
+            $('#pesanUbahMinuman').text("Nama,Harga dan Stok Harus Dimasukan");
+            $('#pesanUbahMinuman').show();
+            setTimeout(function () {
+                $('#pesanUbahMinuman').hide();
+            }, 3000);
+        } else {
+            //Upload Gambar
+            var gambar = new FormData;
+            gambar.append('file', $('#ubahfileGambar')[0].files[0]);
+            var imgname = $('#ubahfileGambar').val();
+            var ext = imgname.substr((imgname.lastIndexOf('.') + 1));
+            console.log(imgname);
+            if (imgname == '') {
+                //Memasukan Perubahan Minuman Ke Database
+                $.ajax({
+                    method: 'POST',
+                    url: 'core.ajax.php',
+                    data: {
+                        aksi: 'ubah_menu_minum',
+                        id: id,
+                        nama: nama,
+                        harga: harga,
+                        stok: stok,
+                    },
+                    success: function (data) {
+                        if (data == "0") {
+                            $('#pesanUbahMinuman').text("Maaf Minuman Gagal diubah");
+                            $('#pesanUbahMinuman').show();
+                            setTimeout(function () {
+                                $('#pesanUbahMinuman').hide();
+                            }, 3000);
+                        } else {
+                            $('#pesanUbahMinuman2').text("Minuman Telah di ubah");
+                            $('#pesanUbahMinuman2').show();
+                            setTimeout(function () {
+                                $('#pesanUbahMinuman2').hide();
+                            }, 3000);
+
+                            $('#minuman_' + id).remove();
+                            $('#tabelMinuman').append('<tr id="minuman_' + id + '">' +
+                                '<th scope="row"><img class="card-img-top" style="width:10rem" src="' + namaGambar + '" alt="' + nama + '"></th>' +
+                                '<td>' + nama + '</td>' +
+                                '<td>Rp. ' + harga + ' / Porsi</td>' +
+                                '<td>' + stok + '</td>' +
+                                '<td>' +
+                                '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMinuman"' +
+                                'data-id-minuman="' + id + '"' +
+                                'data-nama-minuman="' + nama + '" ' +
+                                'data-harga-minuman="' + harga + '" ' +
+                                'data-stok-minuman="' + stok + '" ' +
+                                'data-gambar-minuman="' + namaGambar + '"' +
+                                '>' +
+                                '<button class="btn  btn-secondary">Ubah</button>' +
+                                '</div>' +
+                                '<div class="btnHapusMinuman" data-id-minuman="' + id + '" >' +
+                                '<button class="btn btn-danger">Hapus</button>' +
+                                '</div></td></tr>');
+                        }
+                    },
+                    error: function () {
+                        $('#pesanUbahMinuman').text("Koneksi Gagal, Coba Lagi");
+                        $('#pesanUbahMinuman').show();
+                        setTimeout(function () {
+                            $('#pesanMinuman').hide();
+                        }, 3000);
+                    },
+                });
+            } else {
+                $.ajax({
+                    method: "POST",
+                    url: "image.ajax.php",
+                    data: gambar,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var namaGambar = data;
+                        if (namaGambar == "0") {
+                            $('#pesanUbahMinuman').text("Maaf Minuman Gagal diubah");
+                            $('#pesanUbahMinuman').show();
+                            setTimeout(function () {
+                                $('#pesanUbahMinuman').hide();
+                            }, 3000);
+                        } else {
+                            //Memasukan Minuman Ke Database
+                            console.log(namaGambar);
+                            $.ajax({
+                                method: 'POST',
+                                url: 'core.ajax.php',
+                                data: {
+                                    aksi: 'ubah_menu_minum',
+                                    id: id,
+                                    nama: nama,
+                                    harga: harga,
+                                    stok: stok,
+                                    gambar: namaGambar,
+                                },
+                                success: function (data) {
+                                    if (data == "0") {
+                                        $('#pesanUbahMinuman').text("Maaf Minuman Gagal diubah");
+                                        $('#pesanUbahMinuman').show();
+                                        setTimeout(function () {
+                                            $('#pesanUbahMinuman').hide();
+                                        }, 3000);
+                                    } else {
+                                        $('#pesanUbahMinuman2').text("Minuman Telah di ubah");
+                                        $('#pesanUbahMinuman2').show();
+                                        setTimeout(function () {
+                                            $('#pesanUbahMinuman2').hide();
+                                        }, 3000);
+                                        $('#minuman_' + id).remove();
+                                        $('#tabelMinuman').append('<tr id="minuman_' + id + '">' +
+                                            '<th scope="row"><img class="card-img-top" style="width:10rem" src="' + namaGambar + '" alt="' + nama + '"></th>' +
+                                            '<td>' + nama + '</td>' +
+                                            '<td>Rp. ' + harga + ' / Porsi</td>' +
+                                            '<td>' + stok + '</td>' +
+                                            '<td>' +
+                                            '<div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMinuman"' +
+                                            'data-id-minuman="' + id + '"' +
+                                            'data-nama-minuman="' + nama + '" ' +
+                                            'data-harga-minuman="' + harga + '" ' +
+                                            'data-stok-minuman="' + stok + '" ' +
+                                            'data-gambar-minuman="' + namaGambar + '"' +
+                                            '>' +
+                                            '<button class="btn  btn-secondary">Ubah</button>' +
+                                            '</div>' +
+                                            '<div class="btnHapusMinuman" data-id-minuman="' + id + '" >' +
+                                            '<button class="btn btn-danger">Hapus</button>' +
+                                            '</div></td></tr>');
+                                    }
+                                },
+                                error: function () {
+                                    $('#pesanUbahMinuman').text("Koneksi Gagal, Coba Lagi");
+                                    $('#pesanUbahMinuman').show();
+                                    setTimeout(function () {
+                                        $('#pesanMinuman').hide();
+                                    }, 3000);
+                                },
+                            });
+                        }
+                    },
+                    error: function () {
+                        $('#pesanUbahMinuman').text("Koneksi Gagal, Coba Lagi");
+                        $('#pesanUbahMinuman').show();
+                        setTimeout(function () {
+                            $('#pesanUbahMinuman').hide();
+                        }, 3000);
+                    },
+                });
+            }
+        }
+    }
+});
+// Hapus Menu Minuman
+$(document).on('click', '.btnHapusMinuman', function () {
+    var id = $(this).attr('data-id-minuman');
+    ask = confirm('Anda Yakin akan menghapus menu ?');
+    if (id == '') {
+        $('#pesanMinumanDash2').text("Maaf Terjadi Kesalahan di sistem");
+        $('#pesanMinumanDash2').show();
+        setTimeout(function () {
+            $('#pesanMinumanDash2').hide();
+        }, 3000);
+    } else {
+        if (ask) {
+            $.ajax({
+                method: 'POST',
+                url: 'core.ajax.php',
+                data: {
+                    aksi: 'hapus_menu_minum',
+                    id: id
+                },
+                success: function (data) {
+                    if (data == "0") {
+                        $('#pesanMinumanDash2').text("Minuman Gagal dihapus");
+                        $('#pesanMinumanDash2').show();
+                        setTimeout(function () {
+                            $('#pesanMinumanDash2').hide();
+                        }, 3000);
+                    } else {
+                        $('#pesanMinumanDash').text("Minuman Berhasil dihapus");
+                        $('#pesanMinumanDash').show();
+                        setTimeout(function () {
+                            $('#pesanMinumanDash').hide();
+                        }, 3000);
+                        $('#minuman_' + id).remove();
+                    }
+                },
+                error: function () {
+                    $('#pesanMinumanDash2').text("Koneksi Gagal, Coba Lagi");
+                    $('#pesanMinumanDash2').show();
+                    setTimeout(function () {
+                        $('#pesanMinumanDash2').hide();
+                    }, 3000);
                 }
             });
         }

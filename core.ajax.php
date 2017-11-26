@@ -53,7 +53,35 @@ if($aksi == "tambah_meja"){
     }else{
         echo "0";
     }
+}else if($aksi == "tambah_menu_minum"){
+    $nama = $_POST['nama'];
+    $harga = $_POST['harga'];
+    $stok = $_POST['stok'];
+    $gambar = $_POST['gambar'];
 
+    echo tambahMinuman($nama,$harga,$stok,$gambar);
+}else if($aksi == "ubah_menu_minum"){
+    $id = $_POST['id'];
+    $nama = $_POST['nama'];
+    $harga = $_POST['harga'];
+    $stok = $_POST['stok'];
+    if(isset($_POST['gambar'])){
+        $gambar = $_POST['gambar'];
+    }else{
+        $gambar = '';
+    }
+    if(ubahMinuman($id,$nama,$harga,$stok,$gambar)){
+        echo "1";
+    }else{
+        echo "0";
+    }
+}else if($aksi == "hapus_menu_minum"){
+    $id = $_POST['id'];
+    if(hapusMinuman($id)){
+        echo "1";
+    }else{
+        echo "0";
+    }
 }else{
     echo "0";
 }

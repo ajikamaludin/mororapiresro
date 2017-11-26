@@ -139,3 +139,44 @@ function hapusMakanan($mId){
     $result = run($sql);
     return $result;
 }
+
+function tambahMinuman($mNama,$mHarga,$mStok,$mGambar){
+    global $db;
+    $nama = cekString($mNama);
+    $harga = cekString($mHarga);
+    $stok = cekString($mStok);
+    $gambar = cekString($mGambar);
+
+    $sql = "INSERT INTO `menu` (`nama`, `gambar`, `jenis`, `harga`, `stok`, `status`) VALUES ('$nama', '$gambar', 'minuman', '$harga', '$stok', '0')";
+    $result = run($sql);
+    if($result){
+        $last_id = mysqli_insert_id($db);
+        return $last_id;
+    }else{
+        return 'error';
+    }
+}
+
+function ubahMinuman($mId,$mNama,$mHarga,$mStok,$mGambar){
+    $id = cekString($mId);
+    $nama = cekString($mNama);
+    $harga = cekString($mHarga);
+    $stok = cekString($mStok);
+    $gambar = cekString($mGambar);
+    if(empty($gambar)){
+        $sql = "UPDATE `menu` SET `nama` = '$nama', `harga` = '$harga', `stok` = '$stok' WHERE `menu`.`id_menu` = '$id'";
+        $result = run($sql);
+        return $result;
+    }else{
+        $sql = "UPDATE `menu` SET `nama` = '$nama',`gambar` = '$gambar', `harga` = '$harga', `stok` = '$stok' WHERE `menu`.`id_menu` = '$id'";
+        $result = run($sql);
+        return $result;
+    }
+}
+
+function hapusMinuman($mId){
+    $id = cekString($mId);
+    $sql = "DELETE FROM `menu` WHERE `menu`.`id_menu` = $id";
+    $result = run($sql);
+    return $result;
+}

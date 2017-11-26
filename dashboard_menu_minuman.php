@@ -12,20 +12,20 @@ $data = tampilMenuMinuman();
             <div class="col-lg-2"></div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" style="margin-top:70px">
-                <div id="pesanMakananDash" class="alert alert-success" role="alert" style="display:none;">
+                <div id="pesanMinumanDash" class="alert alert-success" role="alert" style="display:none;">
                     
                 </div>
-                <div id="pesanMakananDash2" class="alert alert-danger" role="alert" style="display:none;">
+                <div id="pesanMinumanDash2" class="alert alert-danger" role="alert" style="display:none;">
                     
                 </div>
                 
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href=".">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Makanan</li>
+                        <li class="breadcrumb-item active" aria-current="page">Minuman</li>
                     </ol>
                 </nav>
-                <button class="btn btn-success" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalMakananTambah"> Tambah </button>
+                <button class="btn btn-success" style="margin-bottom: 20px;" data-toggle="modal" data-target="#modalMinumanTambah"> Tambah </button>
                 <table class="table table-striped table-responsive-sm">
                 <thead>
                     <tr>
@@ -36,26 +36,26 @@ $data = tampilMenuMinuman();
                     <th scope="col">Aksi</th>
                     </tr>
                 </thead>
-                <tbody id="tabelMakanan">
+                <tbody id="tabelMinuman">
                 <?php
-                    foreach ($data as $makanan) {
+                    foreach ($data as $minuman) {
                 ?>
-                    <tr id="makanan_<?= $makanan['id_menu'] ?>">
-                    <th scope="row"><img class="card-img-top" style="width:10rem" src="<?= $makanan['gambar'] ?>" alt="<?= $makanan['nama'] ?>"></th>
-                    <td><?= $makanan['nama'] ?></td>
-                    <td>Rp. <?= $makanan['harga'] ?> / Porsi</td>
-                    <td><?= $makanan['stok'] ?></td>
+                    <tr id="minuman_<?= $minuman['id_menu'] ?>">
+                    <th scope="row"><img class="card-img-top" style="width:10rem" src="<?= $minuman['gambar'] ?>" alt="<?= $minuman['nama'] ?>"></th>
+                    <td><?= $minuman['nama'] ?></td>
+                    <td>Rp. <?= $minuman['harga'] ?> / Porsi</td>
+                    <td><?= $minuman['stok'] ?></td>
                     <td>
-                        <div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMakanan"
-                        data-id-makanan="<?= $makanan['id_menu'] ?>"
-                        data-nama-makanan="<?= $makanan['nama'] ?>" 
-                        data-harga-makanan="<?= $makanan['harga'] ?>" 
-                        data-stok-makanan="<?= $makanan['stok'] ?>" 
-                        data-gambar-makanan="<?= $makanan['gambar'] ?>"
+                        <div style="float:left;margin-right:5px;margin-bottom:5px;" class="btnUbahMinuman"
+                        data-id-minuman="<?= $minuman['id_menu'] ?>"
+                        data-nama-minuman="<?= $minuman['nama'] ?>" 
+                        data-harga-minuman="<?= $minuman['harga'] ?>" 
+                        data-stok-minuman="<?= $minuman['stok'] ?>" 
+                        data-gambar-minuman="<?= $minuman['gambar'] ?>"
                         >
                             <button class="btn  btn-secondary">Ubah</button>
                         </div>
-                        <div class="btnHapusMakanan" data-id-makanan="<?= $makanan['id_menu'] ?>" >
+                        <div class="btnHapusMinuman" data-id-minuman="<?= $minuman['id_menu'] ?>" >
                             <button class="btn btn-danger">Hapus</button>
                         </div>
                     </td>
@@ -67,24 +67,24 @@ $data = tampilMenuMinuman();
                 </table>
 
 <!-- Modal Tambah Makanan-->
-<div class="modal fade" id="modalMakananTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalMinumanTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Menu Makanan Baru</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Menu Minuman Baru</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div id="pesanMakanan" class="alert alert-danger" role="alert" style="display:none">
+        <div id="pesanMinuman" class="alert alert-danger" role="alert" style="display:none">
             
         </div>
-        <div id="pesanMakanan2" class="alert alert-primary" role="alert" style="display:none">
+        <div id="pesanMinuman2" class="alert alert-primary" role="alert" style="display:none">
             
         </div>
         <div class="form-group row">
-            <label for="inputGambarMakanan" class="col-sm-3 col-form-label">Gambar</label>
+            <label for="inputGambarMinuman" class="col-sm-3 col-form-label">Gambar</label>
             <div class="col-sm-9">
             <label class="custom-file">
                 <input type="file" id="fileGambar" class="custom-file-input" require>
@@ -94,50 +94,50 @@ $data = tampilMenuMinuman();
         </div>
 
         <div class="form-group row">
-            <label for="inputNamaMakanan" class="col-sm-3 col-form-label">Nama</label>
+            <label for="inputNamaMinuman" class="col-sm-3 col-form-label">Nama</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="inputNamaMakanan">
+                <input type="text" class="form-control" id="inputNamaMinuman">
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputHargaMakanan" class="col-sm-3 col-form-label">Harga</label>
+            <label for="inputHargaMinuman" class="col-sm-3 col-form-label">Harga</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="inputHargaMakanan">
+                <input type="text" class="form-control" id="inputHargaMinuman">
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputStokMakanan" class="col-sm-3 col-form-label">Stok</label>
+            <label for="inputStokMinuman" class="col-sm-3 col-form-label">Stok</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="inputStokMakanan">
+                <input type="text" class="form-control" id="inputStokMinuman">
             </div>
         </div>
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="simpanMakanan">Simpan</button>
+        <button type="button" class="btn btn-primary" id="simpanMinuman">Simpan</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal Ubah Makanan-->
-<div class="modal fade" id="modalUbahMakanan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalUbahMinuman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ubah Menu Makanan</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Ubah Menu Minuman</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div id="pesanUbahMakanan" class="alert alert-danger" role="alert" style="display:none">
+        <div id="pesanUbahMinuman" class="alert alert-danger" role="alert" style="display:none">
             
         </div>
-        <div id="pesanUbahMakanan2" class="alert alert-primary" role="alert" style="display:none">
+        <div id="pesanUbahMinuman2" class="alert alert-primary" role="alert" style="display:none">
             
         </div>
         <div class="form-group row">
-            <label for="inputGambarMakanan" class="col-sm-3 col-form-label">Gambar</label>
+            <label for="inputGambarMinuman" class="col-sm-3 col-form-label">Gambar</label>
             <div class="col-sm-9">
             <label class="custom-file">
                 <input type="file" id="ubahfileGambar" class="custom-file-input" require>
@@ -147,28 +147,28 @@ $data = tampilMenuMinuman();
         </div>
 
         <div class="form-group row">
-            <label for="inputNamaMakanan" class="col-sm-3 col-form-label">Nama</label>
+            <label for="inputNamaMinuman" class="col-sm-3 col-form-label">Nama</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="inputUbahNamaMakanan">
+                <input type="text" class="form-control" id="inputUbahNamaMinuman">
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputHargaMakanan" class="col-sm-3 col-form-label">Harga</label>
+            <label for="inputHargaMinuman" class="col-sm-3 col-form-label">Harga</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="inputUbahHargaMakanan">
+                <input type="text" class="form-control" id="inputUbahHargaMinuman">
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputStokMakanan" class="col-sm-3 col-form-label">Stok</label>
+            <label for="inputStokMinuman" class="col-sm-3 col-form-label">Stok</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="inputUbahStokMakanan">
+                <input type="text" class="form-control" id="inputUbahStokMinuman">
             </div>
-            <input type="text" class="form-control" id="inputUbahIdMakanan" style="display:none">
-            <input type="text" class="form-control" id="inputUbahGambarMakanan" style="display:none">
+            <input type="text" class="form-control" id="inputUbahIdMinuman" style="display:none">
+            <input type="text" class="form-control" id="inputUbahGambarMinuman" style="display:none">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="ubahMakanan">Simpan</button>
+        <button type="button" class="btn btn-primary" id="ubahMinuman">Simpan</button>
       </div>
     </div>
   </div>

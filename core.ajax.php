@@ -25,7 +25,17 @@ if($aksi == "tambah_meja"){
         echo "0";
     }
 }else if($aksi == "tambah_menu_makan"){
-    var_dump($_FILES['mgambar']);
+    $nama = $_POST['nama'];
+    $harga = $_POST['harga'];
+    $stok = $_POST['stok'];
+    $gambar = $_POST['gambar'];
+
+    if(tambahMakanan($nama,$harga,$stok,$gambar)){
+        echo "0";
+    }else{
+        echo "1";
+    }
+
 }else{
     echo "0";
 }

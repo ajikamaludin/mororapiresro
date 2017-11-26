@@ -98,3 +98,14 @@ function namaGambar($mNama,$mType){
     $nama = time().'_'.$namaGambarPotong.".".$type;
     return $nama;
 }
+
+function tambahMakanan($mNama,$mHarga,$mStok,$mGambar){
+    $nama = cekString($mNama);
+    $harga = cekString($mHarga);
+    $stok = cekString($mStok);
+    $gambar = cekString($mGambar);
+
+    $sql = "INSERT INTO `menu` (`nama`, `gambar`, `jenis`, `harga`, `stok`, `status`) VALUES ('$nama', '$gambar', 'makanan', '$harga', '$stok', '0')";
+    $result = run($sql);
+    return $result;
+}

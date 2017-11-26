@@ -189,6 +189,7 @@ $(document).on('click','#simpanMakanan',function(){
     var gambar = new FormData;
     gambar.append('file',$('#fileGambar')[0].files[0]);
     var imgname = $('input[type=file]').val();
+    var ext = imgname.substr((imgname.lastIndexOf('.') + 1));
     if(imgname == ''){
         $('#pesanMakanan').text("Gambar Harus Dimasukan");
         $('#pesanMakanan').show();
@@ -199,33 +200,76 @@ $(document).on('click','#simpanMakanan',function(){
          var nama = $('#inputNamaMakanan').val();
          var harga = $('#inputHargaMakanan').val();
          var stok = $('#inputStokMakanan').val();
-        $.ajax({
-            method: "POST",
-            url: "image.ajax.php",
-            data: gambar,
-            enctype: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                console.log(data);
-                //Memasukan Makanan Ke Database
-                $.ajax({
-                    method: 'POST',
-                    url: 'core.ajax.php',
-                    data: {
-                        
-                    },
-                    success: function(data){
-
-                    },
-                    error: function(data){
-
-                    }
-                });
-            },
-            error: function (data) {
-                console.log('ERROR' + data);
-            },
-        });
+         if ((harga == '') && (stok == '') && (nama == '') ){
+             $('#pesanMakanan').text("Nama,Harga dan Stok Harus Dimasukan");
+             $('#pesanMakanan').show();
+             setTimeout(function () {
+                 $('#pesanMakanan').hide();
+             }, 3000);
+         }else{
+            $.ajax({
+                method: "POST",
+                url: "image.ajax.php",
+                data: gambar,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var namaGambar = data;
+                    if(namaGambar == "0"){
+                        $('#pesanMakanan').text("Maaf Makanan Gagal dimasukan");
+                        $('#pesanMakanan').show();
+                        setTimeout(function () {
+                            $('#pesanMakanan').hide();
+                        }, 3000);
+                    }else{
+                            //Memasukan Makanan Ke Database
+                            $.ajax({
+                                method: 'POST',
+                                url: 'core.ajax.php',
+                                data: {
+                                    aksi : 'tambah_menu_makan',
+                                    nama : nama,
+                                    harga : harga,
+                                    stok : stok,
+                                    gambar : namaGambar,
+                                    type : ext,
+                                },
+                                success: function(data){
+                                    if(data == "0"){
+                                        $('#pesanMakanan').text("Maaf Makanan Gagal dimasukan, gambar telah di kirim");
+                                        $('#pesanMakanan').show();
+                                        setTimeout(function () {
+                                            $('#pesanMakanan').hide();
+                                        }, 3000);
+                                    }else{
+                                        $('#pesanMakanan2').text("Makanan Telah di tambahkan");
+                                        $('#pesanMakanan2').show();
+                                        setTimeout(function () {
+                                            $('#pesanMakanan2').hide();
+                                        }, 3000);
+                                        // ? Add Element tabel here
+                                    }
+                                },
+                                error: function(data){
+                                    $('#pesanMakanan').text("Koneksi Gagal, Coba Lagi");
+                                    $('#pesanMakanan').show();
+                                    setTimeout(function () {
+                                        $('#pesanMakanan').hide();
+                                    }, 3000);
+                                }
+                            });
+                        }
+                },
+                error: function (data) {
+                    $('#pesanMakanan').text("Koneksi Gagal, Coba Lagi");
+                    $('#pesanMakanan').show();
+                    setTimeout(function () {
+                        $('#pesanMakanan').hide();
+                    }, 3000);
+                },
+            });
+        }
     }
-})
+});
+//Ubah Makanan

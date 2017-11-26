@@ -15,7 +15,7 @@ if(isset($_FILES['file'])){
 
     $error = $file['error'];
     if($error == "0"){
-        echo "0";
+        echo $simpan;
     }else{
         echo $error;
     }

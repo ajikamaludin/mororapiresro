@@ -75,6 +75,16 @@ $data = tampilMenuMakanan();
             
         </div>
         <div class="form-group row">
+            <label for="inputGambarMakanan" class="col-sm-3 col-form-label">Gambar</label>
+            <div class="col-sm-9">
+            <label class="custom-file">
+                <input type="file" id="fileGambar" class="custom-file-input" require>
+            <span class="custom-file-control"></span>
+            </div>
+        </label>
+        </div>
+        
+        <div class="form-group row">
             <label for="inputNamaMakanan" class="col-sm-3 col-form-label">Nama</label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" id="inputNamaMakanan">
@@ -93,15 +103,6 @@ $data = tampilMenuMakanan();
             </div>
         </div>
         
-        <div class="form-group row">
-            <label for="inputGambarMakanan" class="col-sm-3 col-form-label">Gambar</label>
-            <div class="col-sm-9">
-            <label class="custom-file">
-                <input type="file" id="fileGambar" class="custom-file-input" require>
-            <span class="custom-file-control"></span>
-            </div>
-        </label>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="simpanMakanan">Simpan</button>

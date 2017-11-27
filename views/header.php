@@ -43,7 +43,7 @@ include "init/init.php";
     </li>
     <li class="nav-item">
     <!-- perlu konfirmasi sebelum keluar -->
-        <a class="nav-link" href="menu_keluar.php" onclick="confirm('anda yakin  ?')">Keluar</a>
+        <a class="nav-link" id="keluarMenu">Keluar</a>
     </li>
     <?php
       }

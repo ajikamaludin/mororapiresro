@@ -2,7 +2,7 @@
 include "views/header_admin.php";
 
 cekSession();
-
+$data = tampilMasak();
 ?>
   <body>
     <div class="container-fluid">
@@ -10,7 +10,10 @@ cekSession();
             <div class="col-lg-2"></div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" style="margin-top:70px">
-                <div class="alert alert-success" role="alert">
+                <div id="txtSelesaiMasak" class="alert alert-success" role="alert" style="display:none;">
+                    Ini adalah halaman dashboard dapur untuk melihat pesanan
+                </div>
+                <div id="txtSelesaiMasak2" class="alert alert-danger" role="alert" style="display:none;">
                     Ini adalah halaman dashboard dapur untuk melihat pesanan
                 </div>
 
@@ -30,24 +33,22 @@ cekSession();
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td><h1>14</h1></td>
+                <?php foreach ($data as $masak) { ?>
+                    <tr id="dapur_<?= $masak['no_nota'] ?>">
+                    <td><h1><?= noNotaToNoMeja($masak['no_nota'])  ?></h1></td>
                     <td>
-                        <p>Nasi Goreng : 2</p>
-                        <p>Es Teh : 2</p>
-                        <p>Susu Seger : 2</p>
+                        <?php $datas = noNotaToMakanan($masak['no_nota']); 
+                            foreach ($datas as $nama) {
+                        ?>
+                            <p> <?= $nama['nama'] ?> : <?= idMenuNotaToJumlah($masak['no_nota'],$nama['id']) ?> </p>
+                        <?php
+                            }
+                        ?>
+                        
                     </td>
-                    <td><button class="btn btn-primary">Selesai</button></td>  
+                    <td><button class="btn btn-primary" id="selesaiMasak" data-nota="<?= $masak['no_nota'] ?>">Selesai</button></td>  
                     </tr>
-                    <tr>
-                    <td><h1>21</h1></td>
-                    <td>
-                        <p>Nasi Goreng : 2</p>
-                        <p>Es Teh : 2</p>
-                        <p>Susu Seger : 2</p>
-                    </td>
-                    <td><button class="btn btn-primary">Selesai</button></td>  
-                    </tr>
+                <?php } ?>
                 </tbody>
                 </table>
             </div>
@@ -55,6 +56,10 @@ cekSession();
             <div class="col-lg-2"></div>
         </div>
     </div>
+    <script>
+        console.log('reload: start');
+        setInterval(function(){ location.reload() }, 30000);
+    </script>
 <?php
     include "views/footer.php";
 ?>

@@ -1024,12 +1024,53 @@ $(document).on('click', '#simpanSpesial', function () {
     }
 });
 //END OF ADMIN SPESIAL
+//START OF ADMIN Dashboar Dapur
+//masak selesai
+$(document).on('click','#selesaiMasak',function(){
+    var nota = $(this).attr('data-nota'); 
+    ask = confirm("Anda yakin makanan telah selesai dimasak dan sudah diantar ?");
+    if(ask){
+        $.ajax({
+            method: 'POST',
+            url: 'core.ajax.php',
+            data: {
+                aksi: 'selesai_masak',
+                nota: nota,
+            },
+            complete: function(data){
+                if(data == "0"){
+                    $('#txtSelesaiMasak2').text("Gagal selesai, kesalahan di sistem");
+                    $('#txtSelesaiMasak2').show();
+                    setTimeout(function () {
+                        $('#txtSelesaiMasak2').hide();
+                    }, 3000);
+                }else{
+                    $('#txtSelesaiMasak').text("Selesai, Makanan diantar");
+                    $('#txtSelesaiMasak').show();
+                    setTimeout(function () {
+                        $('#txtSelesaiMasak').hide();
+                    }, 3000);
+                    $('#dapur_'+nota).remove();
+                }
+            },
+            error: function(data){
+                $('#txtSelesaiMasak2').text("Koneksi Gagal, Coba Lagi");
+                $('#txtSelesaiMasak2').show();
+                setTimeout(function () {
+                    $('#txtSelesaiMasak2').hide();
+                }, 3000);
+                console.log(data);
+            }
+        });
+    }
+});
+
 // USER PESAN START
 //klik pesan di menu
 var jml = 1;
 var noNota = $('#noNota').val();
 var idMeja = $('#idMeja').val();
-console.log(noNota + ', ' +idMeja)
+
 $(document).on('click', '.btnPesan', function () {
     var idpesan = $(this).attr('data-id-pesan');
     $('#pesanModal').modal('show');
@@ -1225,3 +1266,12 @@ $(document).on('click', '#btnKonfirm', function(){
 $(document).on('click', '#yaKonfirmasi', function () {
     window.location.href = "menu_checkout_konfirmasi.php";
 });
+
+// keluar dari menu
+$(document).on('click', '#keluarMenu', function () {
+    ask = confirm('Anda yakin ingin keluar ?');
+    if(ask){
+        window.location.href = "menu_keluar.php";
+    }
+});
+

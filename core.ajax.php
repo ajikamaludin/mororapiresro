@@ -107,6 +107,13 @@ if($aksi == "tambah_meja"){
     }else{
         echo "0";
     }
+}else if($aksi == "selesai_masak"){
+    $nota = $_POST['nota'];
+    if(selesaiMasak($nota)){
+        echo "1";
+    }else{
+        echo "0";
+    }
 }else{
     echo "0";
 }

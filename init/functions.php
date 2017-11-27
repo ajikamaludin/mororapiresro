@@ -310,3 +310,66 @@ function konfirmPesan($mNota){
      $result = run($sql);
      return $result;  
 }
+
+function tampilMasak(){
+    $sql = "SELECT no_nota FROM `transaksi` WHERE `status` = 'masak' GROUP BY no_nota";
+    $notas = run($sql);
+    return $notas;
+}
+
+function tampilBayar(){
+    $sql = "SELECT no_nota FROM `transaksi` WHERE `status` = 'bayar' GROUP BY no_nota";
+    $notas = run($sql);
+    return $notas;
+}
+
+function noNotaToNoMeja($nota){
+    $sql = "SELECT id_meja FROM `transaksi` WHERE no_nota='$nota' GROUP BY id_meja";
+    $run = run($sql);
+    if($run){
+        $result = mysqli_fetch_assoc($run);
+        $idmeja = $result['id_meja'];
+        $sql = "SELECT no_meja FROM meja WHERE id_meja = '$idmeja'";
+        $run = run($sql);
+        if($run){
+            $data = mysqli_fetch_assoc($run);
+            $no_meja = $data['no_meja'];
+            return $no_meja;
+        }else{
+            die(print_r('error'));
+        }
+    }else{
+        die(print_r('error'));
+    }
+    
+}
+
+function noNotaToMakanan($nota){
+    $sql = "SELECT id_menu FROM `transaksi` WHERE no_nota='$nota' GROUP BY id_menu";
+    $run = run($sql);
+    foreach ($run as $data) {
+        $idmenu = $data['id_menu'];
+        $sql = "SELECT nama FROM `menu` WHERE id_menu = '$idmenu'";
+        $run = run($sql);
+        if($run){
+            $data = mysqli_fetch_assoc($run);
+            $nama = $data['nama'];
+            $datas[] = array('nama' => $nama, 'id' => $idmenu);
+        }
+    }
+    return $datas;
+}
+
+function idMenuNotaToJumlah($nota,$id){
+    $sql = "SELECT jml_porsi FROM `transaksi` WHERE no_nota='$nota' AND id_menu='$id'";
+    //die(print_r($sql));
+    $run = run($sql);
+    $data = mysqli_fetch_assoc($run);
+    $jumlah = $data['jml_porsi'];
+    return $jumlah;
+}
+
+function selesaiMasak($nota){
+    $sql = "UPDATE `transaksi` SET `status` = 'bayar' WHERE `transaksi`.`no_nota` = '$nota'";
+    return run($sql);
+}

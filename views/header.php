@@ -56,12 +56,13 @@ include "init/init.php";
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nasi Goreng</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Pesan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+      <?php if(!$_SESSION['konfirmasi'] == 'ok'){ ?>
             <div id="pesanError" class="alert alert-danger" role="alert" style="display:none">
             
             </div>
@@ -81,13 +82,17 @@ include "init/init.php";
             </div>
             <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
         </div>
+      <?php }else{ ?>
+          <h4> Anda dapat memesan kembali setelah pesanan anda selesai </h4>
+      <?php } ?>
       </div>
+      <?php if(!$_SESSION['konfirmasi'] == 'ok'){ ?>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="kePesan"> Ke Pesanan </button>
         <div id="loadingPesan" style="display:none;">Menggugah . . .</div>
         <button type="button" class="btn btn-primary" id="okPesan"> Ok </button>
-        
       </div>
+      <?php } ?>
     </div>
   </div>
 </div>

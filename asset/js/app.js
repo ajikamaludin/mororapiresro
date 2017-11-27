@@ -1168,3 +1168,60 @@ $(document).on('click', '#kePesan', function () {
         });
     }
 });
+
+//batalkan semua pesanan
+$(document).on('click','#btnBatalPesan',function(){
+    ask = confirm('Anda yakin akan membatalkan semua pesanana ?');
+    if(ask){
+        window.location.href = "menu_checkout_batal.php";
+    }
+});
+
+//batalkan 1 pesanan
+$(document).on('click', '#btnBatalPesan1', function () {
+    var id = $(this).attr('data-id-pesan');
+    ask = confirm('Anda yakin akan membatalkan pesanana ?');
+    if (ask) {
+        $.ajax({
+            method: 'POST',
+            url: 'core.ajax.php',
+            data:{
+                aksi : 'hapus_pesanan',
+                id : id,
+            },
+            success: function(data){
+                if(data == "0"){
+                    $('#checkOutError').text("Pesanan gagal dihapus");
+                    $('#checkOutError').show();
+                    setTimeout(function () {
+                        $('#checkOutError').hide();
+                    }, 3000);
+                }else{
+                    $('#checkOutOk').text("Pesanan Dihapus");
+                    $('#checkOutOk').show();
+                    setTimeout(function () {
+                        $('#checkOutOk').hide();
+                    }, 3000);
+                    $('#pesan_'+id).remove();
+                }
+            },
+            error: function(){
+                $('#checkOutError').text("Pesanan gagal dihapus");
+                $('#checkOutError').show();
+                setTimeout(function () {
+                    $('#checkOutError').hide();
+                }, 3000);
+            }
+        });
+    }
+});
+
+//konfirmasi pesanan
+$(document).on('click', '#btnKonfirm', function(){
+    $('#konfirmasiModal').modal('show');
+});
+
+//konfirmasi pesanan
+$(document).on('click', '#yaKonfirmasi', function () {
+    window.location.href = "menu_checkout_konfirmasi.php";
+});

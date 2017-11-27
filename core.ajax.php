@@ -100,6 +100,13 @@ if($aksi == "tambah_meja"){
     }else{
         echo "0";
     }
+}else if($aksi == "hapus_pesanan"){
+    $id = $_POST['id'];
+    if(batalPesan1($id)){
+        echo "1";
+    }else{
+        echo "0";
+    }
 }else{
     echo "0";
 }

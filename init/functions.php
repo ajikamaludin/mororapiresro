@@ -231,13 +231,13 @@ function cekSessionPengunjung(){
     }
 }
 
-function tampilMenuMakananLimit($limit = 4){
+function tampilMenuMakananLimit($limit = 5){
     $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `jenis`='makanan' LIMIT 0,$limit";
     $result = run($sql);
     return $result;
 }
 
-function tampilMenuMinumanLimit($limit = 4){
+function tampilMenuMinumanLimit($limit = 5){
     $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `jenis`='minuman' LIMIT 0,$limit";
     $result = run($sql);
     return $result;
@@ -265,4 +265,48 @@ function jumlahPesan($mNota){
     $data = run($sql);
     $result = mysqli_num_rows($data);
     return $result;
+}
+
+function tampilCheckout($mNota){
+    $nota = cekString($mNota);
+    $sql = "SELECT `id_transaksi`,`id_menu`,`jml_porsi`,`status` FROM transaksi WHERE `no_nota` = '$nota'";
+    $result = run($sql);
+    return $result;
+}
+
+function tampilNamaMenuBy($mId){
+    $id = cekString($mId);
+    $sql = "SELECT `nama` FROM `menu` WHERE `id_menu` = '$id'";
+    $run = run($sql);
+    $result = mysqli_fetch_assoc($run);
+    return $result['nama'];
+}
+
+function tampilHargaMenuBy($mId){
+    $id = cekString($mId);
+    $sql = "SELECT `harga` FROM `menu` WHERE `id_menu` = '$id'";
+    $run = run($sql);
+    $result = mysqli_fetch_assoc($run);
+    return $result['harga'];
+}
+
+function batalPesan($mNota){
+    $nota = cekString($mNota);
+    $sql = "DELETE FROM transaksi WHERE no_nota = '$mNota'";
+    $result = run($sql);
+    return $result;
+}
+
+function batalPesan1($mId){
+    $id = cekString($mId);
+    $sql = "DELETE FROM transaksi WHERE id_transaksi = '$id'";
+    $result = run($sql);
+    return $result;
+}
+
+function konfirmPesan($mNota){
+     $nota = cekString($mNota);
+     $sql = "UPDATE `transaksi` SET `status` = 'masak' WHERE `transaksi`.`no_nota` = '$nota'";
+     $result = run($sql);
+     return $result;  
 }

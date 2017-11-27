@@ -1,7 +1,10 @@
 <?php
 include "views/header.php";
-?>
-// Halaman Logout
-<?php
-    include "views/footer.php";
+
+
+cekSessionPengunjung();
+if(logoutPengunjung()){
+    header('Location: index.php');
+}
+
 ?>

@@ -90,6 +90,16 @@ if($aksi == "tambah_meja"){
     }else{
         echo "0";
     }
+}else if($aksi == "tambah_pesanan"){
+    $nota = $_POST['nota'];
+    $idmeja = $_POST['idmeja'];
+    $porsi = $_POST['porsi'];
+    $idmenu = $_POST['idmenu'];
+    if(tambahPesan($nota,$idmeja,$porsi,$idmenu)){
+        echo "1";
+    }else{
+        echo "0";
+    }
 }else{
     echo "0";
 }

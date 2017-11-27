@@ -1,5 +1,27 @@
 <?php
 include "views/header.php";
+
+$error = "";
+if(isset($_POST['submit'])){
+    $kodemeja = $_POST['kode_meja'];
+    if (!empty(trim($kodemeja))) {
+		if (loginPengunjung($kodemeja)){
+                $time = time();
+                $_SESSION['time'] = $time;
+                $_SESSION['kode_meja'] = $kodemeja;
+		}else{
+			$error = 'Kode Meja salah';
+		}
+	}else{
+		$error = 'Kode Meja wajib diisi';
+	}
+}
+
+if(isset($_SESSION['time'])){
+    header('Location: menu.php');
+}
+
+
 ?>
   <body>
     <div class="container-fluid">
@@ -11,12 +33,21 @@ include "views/header.php";
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-body">
-                            <p>Masukan No Meja Anda : </p>
-                            <form method="post" action=".">
+                        <?php
+                            if(!empty($error)){
+                        ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?= $error ?>
+                            </div>
+                        <?php
+                            }
+                        ?>
+                            <p>Masukan Kode Meja Anda : </p>
+                            <form method="POST">
                                 <div class="form-group">
-                                    <input name="no_meja" class="form-control" />
+                                    <input name="kode_meja" class="form-control" />
                                 </div>
-                                <button type="submit" class="btn btn-primary">Masuk</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Masuk</button>
                             </form>
                         </div>
                         </div>

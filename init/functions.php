@@ -205,3 +205,64 @@ function spesialMenu($mId){
         return json_encode($data);
     }
 }
+
+function loginPengunjung($mKodeMeja){
+    $kodemeja = cekString($mKodeMeja);
+    $sql = "SELECT `kode_meja` FROM meja WHERE `kode_meja`='$kodemeja'";
+    global $db;
+    if ($hasil = mysqli_query($db, $sql)){
+        if(mysqli_num_rows($hasil) == 1){
+             return true;
+        }else{
+             return false;
+        }
+    }
+}
+
+function logoutPengunjung(){
+  unset($_SESSION['time']);
+  session_destroy();
+  return true;
+}
+
+function cekSessionPengunjung(){
+    if(!isset($_SESSION['time'])){
+        header('Location: index.php');
+    }
+}
+
+function tampilMenuMakananLimit($limit = 4){
+    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `jenis`='makanan' LIMIT 0,$limit";
+    $result = run($sql);
+    return $result;
+}
+
+function tampilMenuMinumanLimit($limit = 4){
+    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `jenis`='minuman' LIMIT 0,$limit";
+    $result = run($sql);
+    return $result;
+}
+
+function tampilIdmeja($mKodeMeja){
+    $kodemeja = cekString($mKodeMeja);
+    $sql = "SELECT `id_meja` FROM meja WHERE kode_meja = '$kodemeja'";
+    $data = run($sql);
+    $result = mysqli_fetch_assoc($data);
+    return $result['id_meja'];
+}
+function tambahPesan($mNota,$mIdmeja,$mPorsi,$mIdmenu){
+    $nota = cekString($mNota);
+    $idmeja = cekString($mIdmeja);
+    $porsi = cekString($mPorsi);
+    $idmenu = cekString($mIdmenu);
+    $sql = "INSERT INTO `transaksi` (`no_nota`, `id_menu`, `jml_porsi`, `id_meja`, `tgl_transaksi`, `status`) VALUES ('$nota', '$idmenu', '$porsi', '$idmeja', CURRENT_TIMESTAMP, 'pesan');";
+    $result = run($sql);
+    return $result;
+}
+function jumlahPesan($mNota){
+    $nota = cekString($mNota);
+    $sql = "SELECT no_nota FROM transaksi WHERE no_nota = '$nota'";
+    $data = run($sql);
+    $result = mysqli_num_rows($data);
+    return $result;
+}

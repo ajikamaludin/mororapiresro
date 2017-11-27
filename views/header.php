@@ -25,12 +25,29 @@ include "init/init.php";
 <ul class="navbar-nav mr-auto">
     </ul>
     <ul class="navbar-nav">
+    <?php 
+      if(!isset($_SESSION['time'])){
+    ?>
     <li class="nav-item">
-        <a class="nav-link" href="menu_checkout.php">Pesanan <span class="badge badge-light">4</span></a>
+        <a class="nav-link" href="login.php">Masuk</a>
+    </li>
+      <?php } ?>
+    <?php 
+      if(isset($_SESSION['time'])){
+    ?>
+    <input type="hidden" value="<?=($_SESSION['time'])?>" id="noNota">
+    <input type="hidden" value="<?= tampilIdMeja($_SESSION['kode_meja']) ?>" id="idMeja">
+    <li class="nav-item">
+        <a class="nav-link" href="menu_checkout.php">Pesanan 
+        <span class="badge badge-light" id="notifedNumber"><?= jumlahPesan($_SESSION['time']) ?></span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="menu_keluar.php">Keluar</a>
+    <!-- perlu konfirmasi sebelum keluar -->
+        <a class="nav-link" href="menu_keluar.php" onclick="confirm('anda yakin  ?')">Keluar</a>
     </li>
+    <?php
+      }
+    ?>
     </ul>
 </div>
   </nav>

@@ -1023,4 +1023,147 @@ $(document).on('click', '#simpanSpesial', function () {
         });
     }
 });
+//END OF ADMIN SPESIAL
+// USER PESAN START
+//klik pesan di menu
+var jml = 1;
+var noNota = $('#noNota').val();
+var idMeja = $('#idMeja').val();
+console.log(noNota + ', ' +idMeja)
+$(document).on('click', '.btnPesan', function () {
+    var idpesan = $(this).attr('data-id-pesan');
+    $('#pesanModal').modal('show');
+    $('#idMenu').val(idpesan);
+    $('#jmlPorsi').val(1);
+});
+//Tombol Tambah dan Kurang
+$(document).on('click', '#kurangPorsi', function () {
+    if(jml == 1){
+    }else{
+        jml = jml - 1;
+        $('#jmlPorsi').val(jml);
+    }    
+});
+$(document).on('click', '#tambahPorsi', function () {
+    jml = jml + 1;
+    $('#jmlPorsi').val(jml);
+    //window.location.href = "menu_checkout.php";
 
+});
+//Ok Pesan
+$(document).on('click', '#okPesan', function () {
+    var idmenu = $('#idMenu').val();
+    var porsi = $('#jmlPorsi').val();
+    if((idmenu == '' && porsi == '') || (noNota == '' && idMeja == '')){
+        $('#pesanError').text("Terjadi Kesalahan di sistem");
+        $('#pesanError').show();
+        setTimeout(function () {
+            $('#pesanError').hide();
+        }, 3000);
+    }else{
+        //do ajax -> notifed -> close modal
+        $.ajax({
+            beforeSend: function(){
+                $('#okPesan').hide();
+                $('#loadingPesan').show();
+            },
+            method: 'POST',
+            url: 'core.ajax.php',
+            data: {
+                aksi: 'tambah_pesanan',
+                nota: noNota,
+                idmeja: idMeja,
+                porsi: porsi,
+                idmenu: idmenu,
+            },
+            success: function(data){
+                if(data == "0"){
+                    $('#pesanError').text("Gagal dipesan");
+                    $('#pesanError').show();
+                    setTimeout(function () {
+                        $('#pesanError').hide();
+                    }, 3000);
+                }else{
+                    $('#pesanModal').modal('hide');
+                    $('#txtPesanMenu').text("Ditambahkan ke pesanan");
+                    $('#txtPesanMenu').show();
+                    setTimeout(function () {
+                        $('#txtPesanMenu').hide();
+                    }, 3000);
+                    num = parseInt($('#notifedNumber').text());
+                    number = num + 1;
+                    $('#notifedNumber').text(number);
+                }
+            },
+            error: function(data){
+                $('#pesanError').text("Gagal dipesan");
+                $('#pesanError').show();
+                setTimeout(function () {
+                    $('#pesanError').hide();
+                }, 3000);
+                $('#okPesan').show();
+                $('#loadingPesanotifedNumbern').hide();
+                console.log(data);
+            },
+            complete: function(){
+                $('#okPesan').show();
+                $('#loadingPesan').hide();
+            }
+        });
+    }
+});
+//ke pesanan
+$(document).on('click', '#kePesan', function () {
+    var idmenu = $('#idMenu').val();
+    var porsi = $('#jmlPorsi').val();
+    if ((idmenu == '' && porsi == '') || (noNota == '' && idMeja == '')) {
+        $('#pesanError').text("Terjadi Kesalahan di sistem");
+        $('#pesanError').show();
+        setTimeout(function () {
+            $('#pesanError').hide();
+        }, 3000);
+    } else {
+        $.ajax({
+            beforeSend: function () {
+                $('#kePesan').hide();
+                $('#loadingPesan').show();
+            },
+            method: 'POST',
+            url: 'core.ajax.php',
+            data: {
+                aksi: 'tambah_pesanan',
+                nota: noNota,
+                idmeja: idMeja,
+                porsi: porsi,
+                idmenu: idmenu,
+            },
+            success: function (data) {
+                if (data == "0") {
+                    $('#pesanError').text("Gagal dipesan");
+                    $('#pesanError').show();
+                    setTimeout(function () {
+                        $('#pesanError').hide();
+                    }, 3000);
+                } else {
+
+                    $('#pesanOk').text("Ditambahkan ke pesanan");
+                    $('#pesanOk').show();
+                    setTimeout(function () {
+                        $('#pesanOk').hide();
+                        window.location.href = "menu_checkout.php";
+                    }, 3000);
+                }
+            },
+            error: function (data) {
+                $('#pesanError').text("Gagal dipesan");
+                $('#pesanError').show();
+                setTimeout(function () {
+                    $('#pesanError').hide();
+                }, 3000);
+                $('#okPesan').show();
+                $('#loadingPesan').hide();
+                console.log(data);
+            },
+        });
+    }
+});

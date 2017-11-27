@@ -1,5 +1,8 @@
 <?php
 include "views/header.php";
+
+cekSessionPengunjung();
+
 ?>
   <body>
     <div class="container-fluid">

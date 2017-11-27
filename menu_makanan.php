@@ -1,5 +1,8 @@
 <?php
 include "views/header.php";
+
+cekSessionPengunjung();
+$data = tampilMenuMakanan();
 ?>
   <body>
     <div class="container-fluid">
@@ -15,62 +18,18 @@ include "views/header.php";
                 </nav>
 
                 <div style="float: none; margin-bottom:20px">
+                <?php
+                    foreach ($data as $makanan) {
+                ?>
                     <div class="card" style="width: 15rem;float: left;margin-bottom:10px;">
-                        <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
+                        <img class="card-img-top" src="<?= $makanan['gambar'] ?>" alt="Card image cap">
                         <div class="card-body">
-                            <h4 class="card-title">Nasi Goreng</h4>
-                            <p class="card-text">Rp. 10.000 / Porsi</p>
+                            <h4 class="card-title"><?= $makanan['nama'] ?></h4>
+                            <p class="card-text">Rp. <?= $makanan['harga'] ?> / Porsi</p>
                             <a href="#" class="btn btn-primary">Pesan</a>
                         </div>
                     </div>
-                    <div class="card" style="width: 15rem;float: left;margin-bottom:10px;">
-                        <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nasi Goreng</h4>
-                            <p class="card-text">Rp. 10.000 / Porsi</p>
-                            <a href="#" class="btn btn-primary">Pesan</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;float: left;margin-bottom:10px;">
-                        <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nasi Goreng</h4>
-                            <p class="card-text">Rp. 10.000 / Porsi</p>
-                            <a href="#" class="btn btn-primary">Pesan</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;float: left;margin-bottom:10px;">
-                        <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nasi Goreng</h4>
-                            <p class="card-text">Rp. 10.000 / Porsi</p>
-                            <a href="#" class="btn btn-primary">Pesan</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;float: left;margin-bottom:10px;">
-                        <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nasi Goreng</h4>
-                            <p class="card-text">Rp. 10.000 / Porsi</p>
-                            <a href="#" class="btn btn-primary">Pesan</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;float: left;margin-bottom:10px;">
-                        <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nasi Goreng</h4>
-                            <p class="card-text">Rp. 10.000 / Porsi</p>
-                            <a href="#" class="btn btn-primary">Pesan</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;float: left">
-                        <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nasi Goreng</h4>
-                            <p class="card-text">Rp. 10.000 / Porsi</p>
-                            <a href="#" class="btn btn-primary">Pesan</a>
-                        </div>
-                    </div>
+                <?php } ?>
                 </div>
              
             </div>

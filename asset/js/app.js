@@ -1064,6 +1064,46 @@ $(document).on('click','#selesaiMasak',function(){
         });
     }
 });
+//batal pesan 
+$(document).on('click', '.batalBayar', function () {
+    var nota = $(this).attr('data-nota');
+    ask = confirm('Yakin untuk membatalkan pesanan ?');
+    if(ask){
+        $.ajax({
+            method: 'POST',
+            url: 'core.ajax.php',
+            data: {
+                aksi: 'batal_pesan',
+                nota: nota,
+            },
+            complete: function (data) {
+                if (data == "0") {
+                    $('#txtSelesaiBayar2').text("Gagal selesai, kesalahan di sistem");
+                    $('#txtSelesaiBayar2').show();
+                    setTimeout(function () {
+                        $('#txtSelesaiBayar2').hide();
+                    }, 3000);
+                } else {
+                    $('#txtSelesaiBayar').text("Pesanan telah dibatalkan");
+                    $('#txtSelesaiBayar').show();
+                    setTimeout(function () {
+                        $('#txtSelesaiBayar').hide();
+                    }, 3000);
+                    $('#nota_' + nota).remove();
+                }
+            },
+            error: function (data) {
+                $('#txtSelesaiBayar2').text("Koneksi Gagal, Coba Lagi");
+                $('#txtSelesaiBayar2').show();
+                setTimeout(function () {
+                    $('#txtSelesaiBayar2').hide();
+                }, 3000);
+                console.log(data);
+            }
+        });
+    }
+
+});
 
 // USER PESAN START
 //klik pesan di menu

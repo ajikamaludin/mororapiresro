@@ -256,6 +256,7 @@ function tambahPesan($mNota,$mIdmeja,$mPorsi,$mIdmenu){
     $porsi = cekString($mPorsi);
     $idmenu = cekString($mIdmenu);
     $sql = "INSERT INTO `transaksi` (`no_nota`, `id_menu`, `jml_porsi`, `id_meja`, `tgl_transaksi`, `status`) VALUES ('$nota', '$idmenu', '$porsi', '$idmeja', CURRENT_TIMESTAMP, 'pesan');";
+    //update stok di menu - porsi
     $result = run($sql);
     return $result;
 }
@@ -293,6 +294,7 @@ function tampilHargaMenuBy($mId){
 function batalPesan($mNota){
     $nota = cekString($mNota);
     $sql = "DELETE FROM transaksi WHERE no_nota = '$mNota'";
+    //update stok di menu + porsi / menu
     $result = run($sql);
     return $result;
 }
@@ -300,6 +302,7 @@ function batalPesan($mNota){
 function batalPesan1($mId){
     $id = cekString($mId);
     $sql = "DELETE FROM transaksi WHERE id_transaksi = '$id'";
+    //update stok di menu + porsi 1 menu
     $result = run($sql);
     return $result;
 }
@@ -318,7 +321,7 @@ function tampilMasak(){
 }
 
 function tampilBayar(){
-    $sql = "SELECT no_nota FROM `transaksi` WHERE `status` = 'bayar' GROUP BY no_nota";
+    $sql = "SELECT no_nota FROM `transaksi` WHERE `status` = 'bayar' OR `status` = 'masak' GROUP BY no_nota";
     $notas = run($sql);
     return $notas;
 }
@@ -349,12 +352,13 @@ function noNotaToMakanan($nota){
     $run = run($sql);
     foreach ($run as $data) {
         $idmenu = $data['id_menu'];
-        $sql = "SELECT nama FROM `menu` WHERE id_menu = '$idmenu'";
+        $sql = "SELECT nama,harga FROM `menu` WHERE id_menu = '$idmenu'";
         $run = run($sql);
         if($run){
             $data = mysqli_fetch_assoc($run);
             $nama = $data['nama'];
-            $datas[] = array('nama' => $nama, 'id' => $idmenu);
+            $harga = $data['harga'];
+            $datas[] = array('nama' => $nama, 'id' => $idmenu, 'harga' => $harga);
         }
     }
     return $datas;

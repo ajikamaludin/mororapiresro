@@ -1035,6 +1035,7 @@ $(document).on('click', '.btnPesan', function () {
     $('#pesanModal').modal('show');
     $('#idMenu').val(idpesan);
     $('#jmlPorsi').val(1);
+    jml = 1;
 });
 //Tombol Tambah dan Kurang
 $(document).on('click', '#kurangPorsi', function () {

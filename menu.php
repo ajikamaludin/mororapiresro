@@ -58,7 +58,9 @@ $minumans = tampilMenuMinumanLimit();
                     <div class="card-body">
                         <h4 class="card-title"><?= $makanan['nama'] ?></h4>
                         <p class="card-text">Rp. <?= $makanan['harga'] ?> / Porsi</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pesanModal">Pesan</a>
+                        <div class="btnPesan" data-id-pesan="<?= $makanan['id_menu'] ?>">
+                            <a href="#" class="btn btn-primary">Pesan</a>
+                        </div>
                     </div>
                 </div>
                 <?php
@@ -87,7 +89,9 @@ $minumans = tampilMenuMinumanLimit();
                     <div class="card-body">
                         <h4 class="card-title"><?= $minuman['nama'] ?></h4>
                         <p class="card-text">Rp. <?= $minuman['harga'] ?> / Porsi</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pesanModal">Pesan</a>
+                        <div class="btnPesan" data-id-pesan="<?= $minuman['id_menu'] ?>">
+                            <a href="#" class="btn btn-primary">Pesan</a>
+                        </div>
                     </div>
                 </div>
                 <?php
@@ -102,46 +106,7 @@ $minumans = tampilMenuMinumanLimit();
 
             </div>
 
-<!-- Modal -->
-<div class="modal fade" id="pesanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nasi Goreng</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <div id="pesanError" class="alert alert-danger" role="alert" style="display:none">
-            
-            </div>
-            <div id="pesanOk" class="alert alert-primary" role="alert" style="display:none">
-            
-            </div>
-        <div class="row">
-            
-            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                <div class="input-group">
-                    <label class="input-group-addon">Porsi : </label>
-                    <span class="input-group-addon" id="kurangPorsi"> - </span>
-                    <input type="number" class="form-control" id="jmlPorsi"></input>
-                    <span class="input-group-addon" id="tambahPorsi"> + </span>
-                </div>
-                <input type="hidden" class="form-control" id="idMenu"></input>
-            </div>
-            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="kePesan"> Ke Pesanan </button>
-        <div id="loadingPesan" style="display:none;">Menggugah . . .</div>
-        <button type="button" class="btn btn-primary" id="okPesan"> Ok </button>
-        
-      </div>
-    </div>
-  </div>
-</div>
+
 
             <div class="col-lg-2"></div>
         </div>

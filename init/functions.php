@@ -180,3 +180,28 @@ function hapusMinuman($mId){
     $result = run($sql);
     return $result;
 }
+
+function tampilMenuSemua(){
+    $sql = "SELECT `id_menu`,`nama`,`gambar`,`harga`,`stok` FROM menu WHERE `status` = '0'";
+    $result = run($sql);
+    return $result;
+}
+
+function normalMenu($mId){
+    $id = cekString($mId);
+    $sql = "UPDATE `menu` SET `status` = '0' WHERE `menu`.`id_menu` = '$id'";
+    $result = run($sql);
+    return $result;
+}
+
+function spesialMenu($mId){
+    $id = cekString($mId);
+    $sql = "UPDATE `menu` SET `status` = '1' WHERE `menu`.`id_menu` = '$id'";
+    $result = run($sql);
+    if($result){
+        $sql = "SELECT `nama`,`harga`,`gambar` FROM `menu` WHERE `id_menu` = '$id'";
+        $result = run($sql);
+        $data = mysqli_fetch_assoc($result);
+        return json_encode($data);
+    }
+}

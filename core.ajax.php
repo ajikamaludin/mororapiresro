@@ -82,6 +82,14 @@ if($aksi == "tambah_meja"){
     }else{
         echo "0";
     }
+}else if($aksi == "ubah_menu_spesial"){
+    $oldid = $_POST['oldid'];
+    $newid = $_POST['newid'];
+    if(normalMenu($oldid)){
+        echo spesialMenu($newid);
+    }else{
+        echo "0";
+    }
 }else{
     echo "0";
 }

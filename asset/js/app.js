@@ -951,3 +951,76 @@ $(document).on('click', '.btnHapusMinuman', function () {
         }
     }
 });
+//END OF ADMIN MINUMAN
+//START OF ADMIN MENU SPESIAL
+//klik ubah di spesial
+$(document).on('click', '.btnUbahSpesial', function () {
+    var idspesial = $(this).attr('data-id-spesial');
+    $('#modalUbahSpesial').modal('show');
+    $('#ubahIdSpesial').val(idspesial);
+});
+
+//klik simpan di perubahan spesial
+var newId;
+$('#selectMenu').change(function () {
+    newId = $(this).val();
+});
+$(document).on('click', '#simpanSpesial', function () {
+    var oldId = $('#ubahIdSpesial').val();
+    if (newId == 0 || typeof newId == 'undefined') {
+        $('#pesanSpesial').text("Anda Harus Memilih Menu");
+        $('#pesanSpesial').show();
+        setTimeout(function () {
+            $('#pesanSpesial').hide();
+        }, 3000);
+    }else if(newId == oldId){
+        //nothing todo
+        $('#pesanSpesial2').text("Menu Spesial tidak berubah");
+        $('#pesanSpesial2').show();
+        setTimeout(function () {
+            $('#pesanSpesial2').hide();
+        }, 3000);
+    }else{
+        $.ajax({
+            method : 'POST',
+            url: 'core.ajax.php',
+            data: {
+                aksi: 'ubah_menu_spesial',
+                oldid: oldId,
+                newid: newId
+            },
+            success: function(data){
+                if(data == "0" || data == ''){
+                    $('#pesanSpesial').text("Perubahan gagal disimpan");
+                    $('#pesanSpesial').show();
+                    setTimeout(function () {
+                        $('#pesanSpesial').hide();
+                    }, 3000);
+                }else{
+                    var dataJson = JSON.parse(data);
+                    gambar = dataJson['gambar'];
+                    nama = dataJson['nama'];
+                    harga = dataJson['harga'];
+                    var item = '<div class="card" style="width: 20rem;" id="spesial_'+ newId +'">' +
+                        '<img class="card-img-top" src="'+gambar+'" alt = "Card image cap" >' +
+                        '<div class = "card-body">' + 
+                        '<h4 class = "card-title"> '+ nama +' </h4>' +
+                        '<p class = "card-text" > Rp.' + harga + ' / Porsi </p>' + 
+                        '<div class = "btnUbahSpesial"   data-id-spesial = "'+newId+'">' +
+                        '<button class = "btn btn-secondary" style = "margin-bottom:5px;" > Ubah </button></div></div></div>';
+                    $('#spesial_'+oldId).remove();
+                    $('#groupSpesial').append(item);
+                    $('#modalUbahSpesial').modal('hide');
+                }
+            },
+            error: function(){
+                $('#pesanSpesial').text("Koneksi Gagal, Coba Lagi");
+                $('#pesanSpesial').show();
+                setTimeout(function () {
+                    $('#pesanSpesial').hide();
+                }, 3000);
+            }
+        });
+    }
+});
+

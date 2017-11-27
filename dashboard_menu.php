@@ -4,8 +4,7 @@ include "views/header_admin.php";
 cekSession();
 
 $data = tampilMenuFavorit();
-$makanans = tampilMenuMakanan();
-$minumans = tampilMenuMinuman();
+$menus = tampilMenuSemua();
 
 ?>
   <body>
@@ -23,34 +22,67 @@ $minumans = tampilMenuMinuman();
                     </ol>
                 </nav>
                 
-                <div class="card-group" style="margin-bottom:20px">
+                <div id="groupSpesial" class="card-group" style="margin-bottom:20px">
                 <?php
                     foreach ($data as $favorit) {
                 ?>
-                <div class="card" style="width: 20rem;" >
+                <div class="card" style="width: 20rem;" id="spesial_<?= $favorit['id_menu'] ?>" >
                 
                     <img class="card-img-top" src="<?= $favorit['gambar'] ?>" alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title"><?= $favorit['nama'] ?></h4>
                         <p class="card-text">Rp. <?= $favorit['harga'] ?> / Porsi</p>
-                        <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" style="margin-bottom:5px;">Ubah</button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="margin-bottom:5px;">Hapus</button>
+                        <div class="btnUbahSpesial"data-id-spesial="<?= $favorit['id_menu'] ?>" >
+                            <button class="btn btn-secondary" style="margin-bottom:5px;">Ubah</button>
+                        </div>
                     </div>
                 </div>
                 <?php
                     }
                 ?>
 
-                <div class="card" style="width: 20rem;" >
-                    <img class="card-img-top" src="asset/image/dummy/background.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title">Favorit</h4>
-                        <p class="card-text">Rp. Harga / Porsi</p>
-                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="margin-bottom:5px;">Tambah</button>
-                    </div>
                 </div>
+<!-- Modal Ubah Spesial-->
+<div class="modal fade" id="modalUbahSpesial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ubah Menu Spesial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="pesanSpesial" class="alert alert-danger" role="alert" style="display:none">
+            
+        </div>
+        <div id="pesanSpesial2" class="alert alert-primary" role="alert" style="display:none">
+            
+        </div>
 
-                </div>
+        <div class="form-group row">
+            <label for="selectMenu" class="col-sm-3 col-form-label">Menu</label>
+            <div class="col-sm-9">
+                <select id="selectMenu" class="form-control">
+                    <option selected value="0">Pilih...</option>
+                    <?php foreach ($menus as $menu) { ?>
+                    <option value="<?= $menu['id_menu'] ?>"><?= $menu['nama'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <input type="hidden" id="ubahIdSpesial"/>
+        </label>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" id="simpanSpesial">Simpan</button>
+        <div id="loadingSpesial" style="display:none;">Menggugah . . .</div>
+      </div>
+    </div>
+  </div>
+</div>
             <div class="col-lg-2"></div>
         </div>
     </div>

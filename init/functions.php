@@ -383,3 +383,10 @@ function selesaiBayar($mNota){
      $result = run($sql);
      return $result;  
 }
+function getStatus($mNota){
+    $sql = "SELECT `status` FROM `transaksi` WHERE `no_nota` = '$mNota' GROUP BY no_nota";
+    $result = run($sql);
+    $data = mysqli_fetch_assoc($result);
+    $status = $data['status'];
+    return $status;
+}

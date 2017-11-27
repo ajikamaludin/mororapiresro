@@ -1104,6 +1104,72 @@ $(document).on('click', '.batalBayar', function () {
     }
 
 });
+//print tabel
+$(document).on('click','#cetakNota', function () {
+    var ask = confirm('yakin ingin mencetak nota ?');
+    if(ask){
+        var html = document.createElement("h1");
+        html.innerHTML = 'Mororapi Resro';
+        var divToPrint = document.getElementById("printTabel");
+        html.append(divToPrint);
+        $('#txtSelesaiBayar2').text("Tabel telah dicetak, klik 'selesai' untuk menyelesaikan pembayaran");
+        $('#txtSelesaiBayar2').show();
+        setTimeout(function () {
+            $('#txtSelesaiBayar2').hide();
+        }, 8000);
+        newWin = window.open("Print");
+        newWin.document.write(html.outerHTML);
+        newWin.print();
+    }
+})
+
+//hitung kembalian
+$(document).on('change','#dibayar',function(){
+    var total = $('#totalBayar').text();
+    var dibayar = $('#dibayar').val();
+    var kembalian = dibayar - total;
+    $('#kembalian').text(kembalian);
+})
+
+//selesai bayar
+$(document).on('click', '#selesaiBayar', function () {
+    var nota = $(this).attr('data-nota');
+    var ask = confirm('yakin untuk menyelesaikan nota ?');
+    if (ask) {
+        $.ajax({
+            method: 'POST',
+            url: 'core.ajax.php',
+            data: {
+                aksi: 'selesai_bayar',
+                nota: nota,
+            },
+            complete: function (data) {
+                if (data == "0") {
+                    $('#txtSelesaiBayar2').text("Gagal selesai, kesalahan di sistem");
+                    $('#txtSelesaiBayar2').show();
+                    setTimeout(function () {
+                        $('#txtSelesaiBayar2').hide();
+                    }, 3000);
+                } else {
+                    $('#txtSelesaiBayar').text("Pesanan telah dibayarkan");
+                    $('#txtSelesaiBayar').show();
+                    setTimeout(function () {
+                        $('#txtSelesaiBayar').hide();
+                        window.location.href = "dashboard_kasir.php";
+                    }, 3000);
+                }
+            },
+            error: function (data) {
+                $('#txtSelesaiBayar2').text("Koneksi Gagal, Coba Lagi");
+                $('#txtSelesaiBayar2').show();
+                setTimeout(function () {
+                    $('#txtSelesaiBayar2').hide();
+                }, 3000);
+                console.log(data);
+            }
+        });
+    }
+})
 
 // USER PESAN START
 //klik pesan di menu

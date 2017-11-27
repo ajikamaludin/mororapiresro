@@ -3,6 +3,9 @@ include "views/header_admin.php";
 
 cekSession();
 
+$nota = $_GET['p'];
+$data = tampilBayar();
+
 ?>
   <body>
     <div class="container-fluid">
@@ -10,8 +13,11 @@ cekSession();
             <div class="col-lg-2"></div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" style="margin-top:70px">
-                <div class="alert alert-success" role="alert">
-                    Ini adalah halaman dashboard kasir detail
+                <div id="txtSelesaiBayar" class="alert alert-success" role="alert" style="display:none;">
+                    Ini adalah halaman dashboard dapur untuk melihat pesanan
+                </div>
+                <div id="txtSelesaiBayar2" class="alert alert-danger" role="alert" style="display:none;">
+                    Ini adalah halaman dashboard dapur untuk melihat pesanan
                 </div>
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
@@ -19,8 +25,8 @@ cekSession();
                         <li class="breadcrumb-item active" aria-current="page">Pesanan</li>
                     </ol>
                 </nav>
-                <h1>No.14</h1>
-                <table class="table table-striped">
+                <h1>No.<?= noNotaToNoMeja($nota) ?></h1>
+                <table class="table table-striped" id="printTabel" border="1px">
                 <thead>
                     <tr>
                     <th scope="col">Nama</th>
@@ -30,29 +36,25 @@ cekSession();
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $datas = noNotaToMakanan($nota); 
+                        $total = 0;
+                        foreach ($datas as $nama) {
+                    ?>
                     <tr>
-                    <td>Ayam Goreng</td>
-                    <td> 2 </td>
-                    <td>Rp. 10000</td>
-                    <td>Rp. 20000</td>  
+                    <td><?= $nama['nama'] ?></td>
+                    <td>  <?= idMenuNotaToJumlah($nota,$nama['id']) ?> </td>
+                    <td>Rp. <?= $nama['harga'] ?></td>
+                    <td>Rp. <?= idMenuNotaToJumlah($nota,$nama['id']) * $nama['harga']?></td>  
                     </tr>
-                    <tr>
-                    <td>Ayam Goreng</td>
-                    <td> 2 </td>
-                    <td>Rp. 10000</td>
-                    <td>Rp. 20000</td>  
-                    </tr>
-                    <tr>
-                    <td>Ayam Goreng</td>
-                    <td> 2 </td>
-                    <td>Rp. 10000</td>
-                    <td>Rp. 20000</td>  
-                    </tr>
+                    <?php 
+                        $total += idMenuNotaToJumlah($nota,$nama['id']) * $nama['harga'];
+                        } 
+                    ?>
                     <tr>
                     <td></td>
                     <td></td>
-                    <td><b>Total</b></td>
-                    <td><b>Rp. 60000</b></td>  
+                    <td><b>Total : </b></td>
+                    <td>Rp. <span id="totalBayar"><?= $total ?></span></td>
                     </tr>
                 </tbody>
                 </table>
@@ -60,9 +62,10 @@ cekSession();
                     <div class="col-6"></div>
                     <div class="col-6">
                     <label>Dibayar :</label>
-                    <input type="text" class="form-control" style="margin-bottom:15px;"/>
-                    <p>Kembali : Rp. 40000</p>
-                    <button class="btn" style="float:right">Selesai</button>
+                    <input type="text" class="form-control" style="margin-bottom:15px;" id="dibayar"/>
+                    <p>Kembali : Rp. <span id="kembalian">0</span></p>
+                    <button class="btn btn-primary" style="float:left" id="cetakNota">Cetak</button>
+                    <button class="btn btn-success" style="float:right" id="selesaiBayar" data-nota="<?= $nota ?>">Selesai</button>
                     </div>
                 </div>
             </div>

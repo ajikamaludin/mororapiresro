@@ -54,9 +54,11 @@ $data = tampilBayar();
                     </td>
                     <td>Rp. <?= $total ?> </td>
                     <td>
+                        <?php if(getStatus($bayar['no_nota']) == 'masak'){ ?>
                         <div class="batalBayar" data-nota="<?=$bayar['no_nota']?>" style="float:left;margin-right:5px;margin-bottom:5px">
                             <button class="btn">Batal</button>
                         </div>
+                        <?php } ?>
                         <a href="dashboard_kasir_detail.php?p=<?=$bayar['no_nota']?>"><button class="btn btn-primary">Bayar</button></a>
                         
                     </td>  

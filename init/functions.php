@@ -366,7 +366,6 @@ function noNotaToMakanan($nota){
 
 function idMenuNotaToJumlah($nota,$id){
     $sql = "SELECT jml_porsi FROM `transaksi` WHERE no_nota='$nota' AND id_menu='$id'";
-    //die(print_r($sql));
     $run = run($sql);
     $data = mysqli_fetch_assoc($run);
     $jumlah = $data['jml_porsi'];
@@ -376,4 +375,11 @@ function idMenuNotaToJumlah($nota,$id){
 function selesaiMasak($nota){
     $sql = "UPDATE `transaksi` SET `status` = 'bayar' WHERE `transaksi`.`no_nota` = '$nota'";
     return run($sql);
+}
+
+function selesaiBayar($mNota){
+     $nota = cekString($mNota);
+     $sql = "UPDATE `transaksi` SET `status` = 'selesai' WHERE `transaksi`.`no_nota` = '$nota'";
+     $result = run($sql);
+     return $result;  
 }

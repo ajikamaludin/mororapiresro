@@ -19,39 +19,52 @@ cekSession();
                         <li class="breadcrumb-item active" aria-current="page">Pesanan</li>
                     </ol>
                 </nav>
-
+                <h1>No.14</h1>
                 <table class="table table-striped">
                 <thead>
                     <tr>
-                    <th scope="col">No Meja</th>
-                    <th scope="col">Pesanan</th>
-                    <th> Total </th>
-                    <th scope="col">Bayar</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Jumlah</th>
+                    <th> Harga </th>
+                    <th scope="col">Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                    <td><h1>14</h1></td>
-                    <td>
-                        <p>Nasi Goreng : 2</p>
-                        <p>Es Teh : 2</p>
-                        <p>Susu Seger : 2</p>
-                    </td>
-                    <td>Rp. 20.000 </td>
-                    <td><button class="btn">Bayar</button></td>  
+                    <td>Ayam Goreng</td>
+                    <td> 2 </td>
+                    <td>Rp. 10000</td>
+                    <td>Rp. 20000</td>  
                     </tr>
                     <tr>
-                    <td><h1>21</h1></td>
-                    <td>
-                        <p>Nasi Goreng : 2</p>
-                        <p>Es Teh : 2</p>
-                        <p>Susu Seger : 2</p>
-                    </td>
-                    <td>Rp. 20.000 </td>
-                    <td><button class="btn">Bayar</button></td>  
+                    <td>Ayam Goreng</td>
+                    <td> 2 </td>
+                    <td>Rp. 10000</td>
+                    <td>Rp. 20000</td>  
+                    </tr>
+                    <tr>
+                    <td>Ayam Goreng</td>
+                    <td> 2 </td>
+                    <td>Rp. 10000</td>
+                    <td>Rp. 20000</td>  
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>Total</b></td>
+                    <td><b>Rp. 60000</b></td>  
                     </tr>
                 </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                    <label>Dibayar :</label>
+                    <input type="text" class="form-control" style="margin-bottom:15px;"/>
+                    <p>Kembali : Rp. 40000</p>
+                    <button class="btn" style="float:right">Selesai</button>
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-2"></div>

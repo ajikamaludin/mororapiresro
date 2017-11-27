@@ -10,6 +10,9 @@ $data = tampilMenuMakanan();
             <div class="col-lg-2"></div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" style="margin-top:70px">
+            <div id="txtPesanMenu" class="alert alert-success" role="alert" style="display:none">
+                    Pesanan Anda Kami Terima dan sedang kami proses
+                </div>
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="menu.php">Menu</a></li>

@@ -62,7 +62,7 @@ include "init/init.php";
         </button>
       </div>
       <div class="modal-body">
-      <?php if(!$_SESSION['konfirmasi'] == 'ok'){ ?>
+      <?php if(!isset($_SESSION['konfirmasi'])){ ?>
             <div id="pesanError" class="alert alert-danger" role="alert" style="display:none">
             
             </div>
@@ -86,7 +86,7 @@ include "init/init.php";
           <h4> Anda dapat memesan kembali setelah pesanan anda selesai </h4>
       <?php } ?>
       </div>
-      <?php if(!$_SESSION['konfirmasi'] == 'ok'){ ?>
+      <?php if(!isset($_SESSION['konfirmasi'])){ ?>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="kePesan"> Ke Pesanan </button>
         <div id="loadingPesan" style="display:none;">Menggugah . . .</div>

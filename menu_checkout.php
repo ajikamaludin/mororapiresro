@@ -10,7 +10,7 @@ $data = tampilCheckout($_SESSION['time']);
             <div class="col-lg-2"></div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" style="margin-top:70px">
-                <?php if($_SESSION['konfirmasi'] == 'ok'){ ?>
+                <?php if(isset($_SESSION['konfirmasi'])){ ?>
                 <div id="checkOutOk" class="alert alert-success" role="alert">
                     Mohon Tunggu, Pesanan Anda Sedang di masak . . .
                 </div>
@@ -62,7 +62,7 @@ $data = tampilCheckout($_SESSION['time']);
                 </tbody>
                 </table>
                 <div style="float:right;margin-top:20px;">
-                <?php if(!$_SESSION['konfirmasi'] == 'ok'){ ?>
+                <?php if(!isset($_SESSION['konfirmasi'])){ ?>
                     <button class="btn btn-success" id="btnKonfirm">Konfirmasi</button>
                     <button class="btn btn-secondary" id="btnBatalPesan">Batal</button>
                 <?php } ?>

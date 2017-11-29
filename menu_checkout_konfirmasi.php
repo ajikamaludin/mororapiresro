@@ -5,7 +5,7 @@ include "views/header.php";
 cekSessionPengunjung();
 if(konfirmPesan($_SESSION['time'])){
     $_SESSION['konfirmasi'] = 'ok';
-    header('Location: index.php');
+    header('Location: menu_checkout.php');
 }
 
 ?>

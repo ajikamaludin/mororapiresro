@@ -1,17 +1,33 @@
 <?php
 include "views/header.php";
 $data = tampilMeja();
+$time = time();
 $error = "";
 if(isset($_POST['submit'])){
     $kodemeja = $_POST['kode_meja'];
     if (!empty(trim($kodemeja))) {
-		if (loginPengunjung($kodemeja)){
-                $time = time();
-                $_SESSION['time'] = $time;
-                $_SESSION['kode_meja'] = $kodemeja;
-		}else{
-			$error = 'Kode Meja salah';
-		}
+
+        $cek = cekMeja($time,$kodemeja);
+
+        if($cek){
+
+            if (loginPengunjung($kodemeja)){
+                $update = updateTimeMeja($time,$kodemeja);
+                if($update){
+                    $_SESSION['time'] = $time;
+                    $_SESSION['kode_meja'] = $kodemeja;
+                }else{
+                    echo "DAMN SYSTEM ERROR";
+                    die();
+                }
+                
+            }else{
+                $error = 'Kode Meja salah';
+            }
+        }else{
+            echo "DAMN SYSTEM ERROR";
+            die();
+        }
 	}else{
 		$error = 'Kode Meja wajib diisi';
 	}
@@ -56,9 +72,13 @@ if(isset($_SESSION['time'])){
                                 <div class="form-group">
                                     <!-- <input name="kode_meja" class="form-control" /> -->
                                     <select class="form-control" name="kode_meja">
-                                    <?php foreach ($data as $meja) { ?>
+                                    <?php foreach ($data as $meja) { 
+                                        if(cekMeja(time(),$meja['kode_meja'])){  
+                                    ?>    
                                         <option value="<?=$meja['kode_meja']?>"><?=$meja['kode_meja']?></option>
-                                    <?php } ?>
+                                    <?php 
+                                        }
+                                    } ?>
                                     </select>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Masuk</button>

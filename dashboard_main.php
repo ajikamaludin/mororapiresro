@@ -40,7 +40,9 @@ $data = tampilMasak();
                         <?php $datas = noNotaToMakanan($masak['no_nota']); 
                             foreach ($datas as $nama) {
                         ?>
-                            <p><input type="checkbox"> <?= $nama['nama'] ?> : <?= idMenuNotaToJumlah($masak['no_nota'],$nama['id']) ?> </p>
+                            <p><input class="checkboxDapur" type="checkbox" data-id="<?= $masak['id_transaksi']?>"> 
+                            <?= $nama['nama'] ?> : 
+                            <?= idMenuNotaToJumlah($masak['no_nota'],$nama['id']) ?> </p>
                         <?php
                             }
                         ?>
@@ -57,8 +59,8 @@ $data = tampilMasak();
         </div>
     </div>
     <script>
-        console.log('reload: start');
-        setInterval(function(){ location.reload() }, 30000);
+        /* console.log('reload: start');
+        setInterval(function(){ location.reload() }, 30000); */
     </script>
 <?php
     include "views/footer.php";

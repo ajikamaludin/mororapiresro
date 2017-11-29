@@ -347,7 +347,7 @@ function konfirmPesan($mNota){
 }
 
 function tampilMasak(){
-    $sql = "SELECT no_nota FROM `transaksi` WHERE `status` = 'masak' GROUP BY no_nota";
+    $sql = "SELECT id_transaksi,no_nota FROM `transaksi` WHERE `status` = 'masak' GROUP BY no_nota";
     $notas = run($sql);
     return $notas;
 }
@@ -446,4 +446,31 @@ function tambahStok($id,$porsi){
             return $run;
         }
     return false;
+}
+
+function updateTimeMeja($time,$kodemeja){
+    $lastusagePlus30 = strtotime("+2 minutes", $time);
+    $sql = "UPDATE `meja` SET `usage` = '$lastusagePlus30' WHERE `meja`.`kode_meja` = '$kodemeja'";
+    $run = run($sql);
+    return $run;
+}
+
+function cekMeja($time,$kodemeja){
+    $sql = "SELECT `usage` FROM meja WHERE kode_meja = '$kodemeja'";
+    //die(print_r($sql));
+    $run = run($sql);
+    $data = mysqli_fetch_assoc($run);
+    $lastusage = $data['usage'];
+    //die(print_r($lastusage));
+    if($lastusage <= $time){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function buangMeja($kodemeja){
+    $sql = "UPDATE `meja` SET `usage` = '0' WHERE `meja`.`kode_meja` = '$kodemeja'";
+    $run = run($sql);
+    return $run;
 }

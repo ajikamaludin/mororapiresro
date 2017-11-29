@@ -1064,6 +1064,15 @@ $(document).on('click','#selesaiMasak',function(){
         });
     }
 });
+//masak selesai satu porsi
+$('.checkboxDapur').on('change',function(){
+    if($(this).is(":checked")){
+        console.log('yes');
+    }else{
+        console.log('no');
+    }
+});
+
 //batal pesan 
 $(document).on('click', '.batalBayar', function () {
     var nota = $(this).attr('data-nota');

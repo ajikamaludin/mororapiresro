@@ -46,7 +46,7 @@ $number = mysqli_num_rows($data);
                     <?php 
                         $total = '0';
                         foreach ($data as $pesanan) {
-                        if($pesanan['status'] == "pesan"){
+                        /* if($pesanan['status'] == "pesan"){ */
                     ?>
                     <tr id="pesan_<?= $pesanan['id_transaksi'] ?>">
                         <td><?= tampilNamaMenuBy($pesanan['id_menu']) ?></td>
@@ -54,15 +54,18 @@ $number = mysqli_num_rows($data);
                         <td>Rp <?= tampilHargaMenuBy($pesanan['id_menu']) ?></td>
                         <td>Rp <?= tampilHargaMenuBy($pesanan['id_menu']) * $pesanan['jml_porsi'] ?></td>
                     <td>
-                    <div id="btnBatalPesan1" data-id-pesan="<?= $pesanan['id_transaksi'] ?>">
-                        <button class="btn btn-danger">Hapus</button>
-                    </div>
+                    <?php if($pesanan['status'] == "pesan"){ ?>
+                        <div id="btnBatalPesan1" data-id-pesan="<?= $pesanan['id_transaksi'] ?>">
+                            <button class="btn btn-danger">Hapus</button>
+                        </div>
+                    <?php } ?>
                     </td>
                     </tr>
                     <?php
-                            }
-                            $sub = tampilHargaMenuBy($pesanan['id_menu']) * $pesanan['jml_porsi'];
-                            $total += $sub;
+                                $sub = tampilHargaMenuBy($pesanan['id_menu']) * $pesanan['jml_porsi'];
+                                $total += $sub;
+                            /* } */
+                            
                         }
                     ?>
                     <tr>

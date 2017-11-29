@@ -1109,14 +1109,11 @@ $(document).on('click','#cetakNota', function () {
     var ask = confirm('yakin ingin mencetak nota ?');
     if(ask){
         var html = document.createElement("h1");
-        html.innerHTML = 'Mororapi Resro';
+        html.innerHTML = 'Mororapi Resto';
         var divToPrint = document.getElementById("printTabel");
         html.append(divToPrint);
-        $('#txtSelesaiBayar2').text("Tabel telah dicetak, klik 'selesai' untuk menyelesaikan pembayaran");
+        $('#txtSelesaiBayar2').text("Nota telah dicetak, klik 'selesai' untuk menyelesaikan pembayaran");
         $('#txtSelesaiBayar2').show();
-        setTimeout(function () {
-            $('#txtSelesaiBayar2').hide();
-        }, 8000);
         newWin = window.open("Print");
         newWin.document.write(html.outerHTML);
         newWin.print();
@@ -1128,7 +1125,14 @@ $(document).on('change','#dibayar',function(){
     var total = $('#totalBayar').text();
     var dibayar = $('#dibayar').val();
     var kembalian = dibayar - total;
-    $('#kembalian').text(kembalian);
+    kem = parseInt(kembalian);
+    if(kem < 0){
+        alert("Pembayaran Kurang");
+    }else{
+        $('#kembalian').text(kembalian);
+        $('#selesaiBayar').show();
+        $('#cetakNota').show();
+    }
 })
 
 //selesai bayar
@@ -1179,9 +1183,11 @@ var idMeja = $('#idMeja').val();
 
 $(document).on('click', '.btnPesan', function () {
     var idpesan = $(this).attr('data-id-pesan');
+    var stok = $(this).attr('data-stok');
     $('#pesanModal').modal('show');
     $('#idMenu').val(idpesan);
     $('#jmlPorsi').val(1);
+    $('#stokM').val(stok);
     jml = 1;
 });
 //Tombol Tambah dan Kurang
@@ -1194,14 +1200,24 @@ $(document).on('click', '#kurangPorsi', function () {
 });
 $(document).on('click', '#tambahPorsi', function () {
     jml = jml + 1;
-    $('#jmlPorsi').val(jml);
-    //window.location.href = "menu_checkout.php";
-
+    stok = $('#stokM').val();
+    stokm = parseInt(stok);
+    if(jml > stokm){
+        jml = jml - 1;
+        alert('Maaf Porsi Hanya Tinggal ' + stokm + ' porsi');
+    }else{
+        $('#jmlPorsi').val(jml);
+    }
 });
 //Ok Pesan
 $(document).on('click', '#okPesan', function () {
     var idmenu = $('#idMenu').val();
     var porsi = $('#jmlPorsi').val();
+    por = parseInt(porsi);
+    if(por <= 0){
+        alert("Pesanan tidak boleh kosong");
+        return;
+    }
     if((idmenu == '' && porsi == '') || (noNota == '' && idMeja == '')){
         $('#pesanError').text("Terjadi Kesalahan di sistem");
         $('#pesanError').show();
@@ -1264,6 +1280,11 @@ $(document).on('click', '#okPesan', function () {
 $(document).on('click', '#kePesan', function () {
     var idmenu = $('#idMenu').val();
     var porsi = $('#jmlPorsi').val();
+    por = parseInt(porsi);
+    if (por <= 0) {
+        alert("Pesanan tidak boleh kosong");
+        return;
+    }
     if ((idmenu == '' && porsi == '') || (noNota == '' && idMeja == '')) {
         $('#pesanError').text("Terjadi Kesalahan di sistem");
         $('#pesanError').show();

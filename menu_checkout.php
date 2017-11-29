@@ -3,6 +3,9 @@ include "views/header.php";
 
 cekSessionPengunjung();
 $data = tampilCheckout($_SESSION['time']);
+
+$number = mysqli_num_rows($data);
+
 ?>
   <body>
     <div class="container-fluid">
@@ -40,7 +43,9 @@ $data = tampilCheckout($_SESSION['time']);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($data as $pesanan) {
+                    <?php 
+                        $total = '0';
+                        foreach ($data as $pesanan) {
                         if($pesanan['status'] == "pesan"){
                     ?>
                     <tr id="pesan_<?= $pesanan['id_transaksi'] ?>">
@@ -56,15 +61,28 @@ $data = tampilCheckout($_SESSION['time']);
                     </tr>
                     <?php
                             }
+                            $sub = tampilHargaMenuBy($pesanan['id_menu']) * $pesanan['jml_porsi'];
+                            $total += $sub;
                         }
                     ?>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><b>Total : </b></td>
+                        <td>Rp <?= $total ?> </td>
+                        <td></td>
+                        
+                    </tr>
 
                 </tbody>
                 </table>
+                <button class="btn btn-info" style="float:left;margin-right:5px;margin-top:20px;" onclick="window.history.back()">Kembali</button>
                 <div style="float:right;margin-top:20px;">
                 <?php if(!isset($_SESSION['konfirmasi'])){ ?>
+                    <?php if(!$number <= 0){ ?>
                     <button class="btn btn-success" id="btnKonfirm">Konfirmasi</button>
                     <button class="btn btn-secondary" id="btnBatalPesan">Batal</button>
+                    <?php } ?>
                 <?php } ?>
                 </div>
             </div>

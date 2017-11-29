@@ -13,6 +13,9 @@ $data = tampilMenuMinuman();
             <div id="txtPesanMenu" class="alert alert-success" role="alert" style="display:none">
                     Pesanan Anda Kami Terima dan sedang kami proses
                 </div>
+                <nav aria-label="breadcrumb" role="navigation" class="row">
+                    <button class="btn btn-info" style="float:left;margin-bottom:10px;margin-left:15px;display:block;" onclick="window.history.back()">Kembali</button>
+                </nav>
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="menu.php">Menu</a></li>
@@ -29,10 +32,16 @@ $data = tampilMenuMinuman();
                         <div class="card-body">
                             <h4 class="card-title"><?= $minuman['nama'] ?></h4>
                             <p class="card-text">Rp. <?= $minuman['harga'] ?> / Porsi</p>
-                            <div class="btnPesan" data-id-pesan="<?= $minuman['id_menu'] ?>">
-                            <a href="#" class="btn btn-primary">Pesan</a>
-                        </div>
-                        </div>
+                            <?php if($minuman['stok'] <= 0){ ?>
+                            <p class="alert alert-danger">
+                                Habis
+                            </p>
+                            <?php }else{ ?>
+                            <div class="btnPesan" data-id-pesan="<?= $minuman['id_menu'] ?>" data-stok="<?= $minuman['stok'] ?>">
+                                <a href="#" class="btn btn-primary">Pesan</a>
+                            </div>
+                            <?php } ?>
+                            </div>
                     </div>
                 <?php } ?>
                 </div>

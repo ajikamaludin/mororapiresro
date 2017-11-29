@@ -26,6 +26,16 @@ function login($mUsername,$mPassword){
     }
 }
 
+function cekLogin($mUsername,$mPassword){
+    $username = cekString($mUsername);
+    $password = cekString($mPassword);
+    $password = md5($password);
+    $sql = "SELECT `status` FROM users WHERE `username`='$username' AND `password`='$password'";
+    $run = run($sql);
+    $data = mysqli_fetch_assoc($run);
+    return $data['status'];
+}
+
 function logout(){
   unset($_SESSION['user']);
   session_destroy();
@@ -257,8 +267,11 @@ function tambahPesan($mNota,$mIdmeja,$mPorsi,$mIdmenu){
     $idmenu = cekString($mIdmenu);
     $sql = "INSERT INTO `transaksi` (`no_nota`, `id_menu`, `jml_porsi`, `id_meja`, `tgl_transaksi`, `status`) VALUES ('$nota', '$idmenu', '$porsi', '$idmeja', CURRENT_TIMESTAMP, 'pesan');";
     //update stok di menu - porsi
-    $result = run($sql);
-    return $result;
+    $pesan = kurangStok($idmenu,$porsi);
+    if($pesan){
+        $result = run($sql);
+        return $result;
+    }
 }
 function jumlahPesan($mNota){
     $nota = cekString($mNota);
@@ -293,18 +306,37 @@ function tampilHargaMenuBy($mId){
 
 function batalPesan($mNota){
     $nota = cekString($mNota);
-    $sql = "DELETE FROM transaksi WHERE no_nota = '$mNota'";
-    //update stok di menu + porsi / menu
+    $sql = "SELECT id_transaksi FROM transaksi WHERE no_nota = '$nota'";
+    $run = run($sql);
+    foreach ($run as $data) {
+        $id = $data['id_transaksi'];
+        if(batalPesanToDatabase($id)){
+            
+        }else{
+            return;
+        }
+    }
+    $sql = "DELETE FROM transaksi WHERE no_nota = '$nota'";
     $result = run($sql);
     return $result;
 }
 
 function batalPesan1($mId){
     $id = cekString($mId);
-    $sql = "DELETE FROM transaksi WHERE id_transaksi = '$id'";
-    //update stok di menu + porsi 1 menu
-    $result = run($sql);
-    return $result;
+    if(batalPesanToDatabase($id)){
+        $sql = "DELETE FROM transaksi WHERE id_transaksi = '$id'";
+        $result = run($sql);
+        return $result;
+    }
+}
+
+function batalPesanToDatabase($id){
+    $sql = "SELECT id_menu,jml_porsi FROM transaksi WHERE id_transaksi = '$id'";
+    $run = run($sql);
+    $data = mysqli_fetch_assoc($run);
+    $porsi = $data['jml_porsi'];
+    $idmenu = $data['id_menu'];
+    return tambahStok($idmenu,$porsi);
 }
 
 function konfirmPesan($mNota){
@@ -389,4 +421,29 @@ function getStatus($mNota){
     $data = mysqli_fetch_assoc($result);
     $status = $data['status'];
     return $status;
+}
+function kurangStok($id,$porsi){
+    $sql = "SELECT `stok` FROM `menu` WHERE `menu`.`id_menu` = $id";
+    $run = run($sql);
+    $data = mysqli_fetch_assoc($run);
+    $stok = $data['stok'] - $porsi;
+        if($run){
+            $sql = "UPDATE `menu` SET `stok` = '$stok' WHERE `menu`.`id_menu` = '$id'";
+            $run = run($sql);
+            return $run;
+        }
+    return false;
+}
+
+function tambahStok($id,$porsi){
+    $sql = "SELECT `stok` FROM `menu` WHERE `menu`.`id_menu` = $id";
+    $run = run($sql);
+    $data = mysqli_fetch_assoc($run);
+    $stok = $data['stok'] + $porsi;
+        if($run){
+            $sql = "UPDATE `menu` SET `stok` = '$stok' WHERE `menu`.`id_menu` = '$id'";
+            $run = run($sql);
+            return $run;
+        }
+    return false;
 }

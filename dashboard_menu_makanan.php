@@ -21,7 +21,7 @@ $data = tampilMenuMakanan();
                 
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href=".">Dashboard</a></li>
+                        <li class="breadcrumb-item">Dashboard</li>
                         <li class="breadcrumb-item active" aria-current="page">Makanan</li>
                     </ol>
                 </nav>

@@ -15,7 +15,7 @@ include "init/init.php";
   </head>
   
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href=".">Mororapi Resro</a>
+    <a class="navbar-brand" href="login.php">Mororapi Resto</a>
     <?php
       if(isset($_SESSION['user'])){
         
@@ -27,12 +27,19 @@ include "init/init.php";
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+        <?php if($_SESSION['status'] == 'dapur' || $_SESSION['status'] == 'admin'){ ?>
           <li>
             <a class="nav-link" href="dashboard_main.php">Dashboard</a>
           </li>
+          <?php }
+            if($_SESSION['status'] == 'kasir' || $_SESSION['status'] == 'admin'){
+          ?>
           <li>
             <a class="nav-link" href="dashboard_kasir.php">Kasir</a>
           </li>
+          <?php }
+            if($_SESSION['status'] == 'admin'){
+          ?>
           <li>
             <a class="nav-link" href="dashboard_meja.php">Meja</a>
           </li>
@@ -46,6 +53,7 @@ include "init/init.php";
               <a class="dropdown-item" href="dashboard_menu_minuman.php">Minuman</a>
             </div>
           </li>
+            <?php } ?>
         </ul>
         <ul class="navbar-nav">
         <li class="nav-item">

@@ -32,9 +32,15 @@ $minumans = tampilMenuMinumanLimit();
                     <div class="card-body">
                         <h4 class="card-title"><?= $spesial['nama'] ?></h4>
                         <p class="card-text">Rp. <?= $spesial['harga'] ?> / Porsi</p>
-                        <div class="btnPesan" data-id-pesan="<?= $spesial['id_menu'] ?>">
+                        <?php if($spesial['stok'] <= 0){ ?>
+                        <p class="alert alert-danger">
+                            Habis
+                        </p>
+                        <?php }else{ ?>
+                        <div class="btnPesan" data-id-pesan="<?= $spesial['id_menu'] ?>" data-stok="<?= $spesial['stok'] ?>">
                             <a href="#" class="btn btn-primary">Pesan</a>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php
@@ -58,9 +64,15 @@ $minumans = tampilMenuMinumanLimit();
                     <div class="card-body">
                         <h4 class="card-title"><?= $makanan['nama'] ?></h4>
                         <p class="card-text">Rp. <?= $makanan['harga'] ?> / Porsi</p>
-                        <div class="btnPesan" data-id-pesan="<?= $makanan['id_menu'] ?>">
+                        <?php if($makanan['stok'] <= 0){ ?>
+                        <p class="alert alert-danger">
+                            Habis
+                        </p>
+                        <?php }else{ ?>
+                        <div class="btnPesan" data-id-pesan="<?= $makanan['id_menu'] ?>" data-stok="<?= $makanan['stok'] ?>">
                             <a href="#" class="btn btn-primary">Pesan</a>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php
@@ -89,9 +101,15 @@ $minumans = tampilMenuMinumanLimit();
                     <div class="card-body">
                         <h4 class="card-title"><?= $minuman['nama'] ?></h4>
                         <p class="card-text">Rp. <?= $minuman['harga'] ?> / Porsi</p>
-                        <div class="btnPesan" data-id-pesan="<?= $minuman['id_menu'] ?>">
+                        <?php if($minuman['stok'] <= 0){ ?>
+                        <p class="alert alert-danger">
+                            Habis
+                        </p>
+                        <?php }else{ ?>
+                        <div class="btnPesan" data-id-pesan="<?= $minuman['id_menu'] ?>" data-stok="<?= $minuman['stok'] ?>">
                             <a href="#" class="btn btn-primary">Pesan</a>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php

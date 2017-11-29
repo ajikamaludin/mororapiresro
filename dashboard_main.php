@@ -19,7 +19,7 @@ $data = tampilMasak();
 
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href=".">Dashboard</a></li>
+                        <li class="breadcrumb-item">Dashboard</li>
                         <li class="breadcrumb-item active" aria-current="page">Pesanan</li>
                     </ol>
                 </nav>
@@ -40,7 +40,7 @@ $data = tampilMasak();
                         <?php $datas = noNotaToMakanan($masak['no_nota']); 
                             foreach ($datas as $nama) {
                         ?>
-                            <p> <?= $nama['nama'] ?> : <?= idMenuNotaToJumlah($masak['no_nota'],$nama['id']) ?> </p>
+                            <p><input type="checkbox"> <?= $nama['nama'] ?> : <?= idMenuNotaToJumlah($masak['no_nota'],$nama['id']) ?> </p>
                         <?php
                             }
                         ?>

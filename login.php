@@ -6,7 +6,11 @@ if(isset($_POST['submit'])){
     $password = $_POST['password'];
     if (!empty(trim($username)) && !empty(trim($password))) {
 		if (login($username, $password)){
-			   $_SESSION['user'] = $username;
+            $status = cekLogin($username,$password);
+            if($status){
+                $_SESSION['status'] = $status;
+                $_SESSION['user'] = $username;
+            }
 		}else{
 			$error = 'Username dan Password salah';
 		}
@@ -15,8 +19,12 @@ if(isset($_POST['submit'])){
 	}
 }
 
-if(isset($_SESSION['user'])){
+if(isset($_SESSION['user']) && $_SESSION['status'] == 'admin'){
     header('Location: dashboard_main.php');
+}else if(isset($_SESSION['user']) && $_SESSION['status'] == 'dapur'){
+    header('Location: dashboard_main.php');
+}else if(isset($_SESSION['user']) && $_SESSION['status'] == 'kasir'){
+    header('Location: dashboard_kasir.php');
 }
 
 
@@ -40,7 +48,7 @@ if(isset($_SESSION['user'])){
                         <?php
                             }
                         ?>
-                        <h4>Admin Panel</h4>
+                        <h4>Staf Panel</h4>
                             <form method="post" action="">
                                 <div class="form-group">
                                     <div class="input-group" style="margin-bottom:5px;">

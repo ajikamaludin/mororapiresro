@@ -15,7 +15,7 @@ include "init/init.php";
   </head>
   
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href=".">Mororapi Resro</a>
+    <a class="navbar-brand" href=".">Mororapi Resto</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -75,10 +75,11 @@ include "init/init.php";
                 <div class="input-group">
                     <label class="input-group-addon">Porsi : </label>
                     <span class="input-group-addon" id="kurangPorsi"> - </span>
-                    <input type="number" class="form-control" id="jmlPorsi"></input>
+                    <input type="text" class="form-control" id="jmlPorsi" min="1" disabled></input>
                     <span class="input-group-addon" id="tambahPorsi"> + </span>
                 </div>
                 <input type="hidden" class="form-control" id="idMenu"></input>
+                <input type="hidden" class="form-control" id="stokM"></input>
             </div>
             <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
         </div>

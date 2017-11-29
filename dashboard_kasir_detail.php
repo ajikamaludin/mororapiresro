@@ -21,8 +21,9 @@ $data = tampilBayar();
                 </div>
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href=".">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Pesanan</li>
+                        <li class="breadcrumb-item">Dashboard</li>
+                        <li class="breadcrumb-item" aria-current="page">Kasir</li>
+                        <li class="breadcrumb-item active" aria-current="page">Detail</li>
                     </ol>
                 </nav>
                 <h1>No.<?= noNotaToNoMeja($nota) ?></h1>
@@ -59,13 +60,13 @@ $data = tampilBayar();
                 </tbody>
                 </table>
                 <div class="row">
-                    <div class="col-6"></div>
+                    <div class="col-6"><button class="btn btn-info" style="float:left;margin-right:5px;margin-top:125px;" onclick="window.location.href='dashboard_kasir.php'">Kembali</button></div>
                     <div class="col-6">
                     <label>Dibayar :</label>
-                    <input type="text" class="form-control" style="margin-bottom:15px;" id="dibayar"/>
+                    <input type="text" class="form-control" style="margin-bottom:15px;" id="dibayar" min="500" max="10000000"/>
                     <p>Kembali : Rp. <span id="kembalian">0</span></p>
-                    <button class="btn btn-primary" style="float:left" id="cetakNota">Cetak</button>
-                    <button class="btn btn-success" style="float:right" id="selesaiBayar" data-nota="<?= $nota ?>">Selesai</button>
+                    <button class="btn btn-primary" style="float:left;display:none;" id="cetakNota">Cetak</button>
+                    <button class="btn btn-success" style="float:right;display:none;" id="selesaiBayar" data-nota="<?= $nota ?>">Selesai</button>
                     </div>
                 </div>
             </div>

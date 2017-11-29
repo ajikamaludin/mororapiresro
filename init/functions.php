@@ -457,11 +457,9 @@ function updateTimeMeja($time,$kodemeja){
 
 function cekMeja($time,$kodemeja){
     $sql = "SELECT `usage` FROM meja WHERE kode_meja = '$kodemeja'";
-    //die(print_r($sql));
     $run = run($sql);
     $data = mysqli_fetch_assoc($run);
     $lastusage = $data['usage'];
-    //die(print_r($lastusage));
     if($lastusage <= $time){
         return true;
     }else{

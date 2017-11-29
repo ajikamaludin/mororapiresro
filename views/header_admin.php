@@ -15,11 +15,12 @@ include "init/init.php";
   </head>
   
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="login.php">Mororapi Resto</a>
+    
     <?php
       if(isset($_SESSION['user'])){
         
     ?>
+    <a class="navbar-brand" href="login.php">Mororapi Resto</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -62,6 +63,10 @@ include "init/init.php";
         </ul>
     </div>
     <?php
+      }else{
+        ?>
+        <a class="navbar-brand" href=".">Mororapi Resto</a>
+        <?php
       }
     ?>
   </nav>

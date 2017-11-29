@@ -1117,15 +1117,15 @@ $(document).on('click', '.batalBayar', function () {
 $(document).on('click','#cetakNota', function () {
     var ask = confirm('yakin ingin mencetak nota ?');
     if(ask){
-        var html = document.createElement("h1");
-        html.innerHTML = 'Mororapi Resto';
-        var divToPrint = document.getElementById("printTabel");
-        html.append(divToPrint);
-        $('#txtSelesaiBayar2').text("Nota telah dicetak, klik 'selesai' untuk menyelesaikan pembayaran");
-        $('#txtSelesaiBayar2').show();
-        newWin = window.open("Print");
-        newWin.document.write(html.outerHTML);
-        newWin.print();
+        $('#backBtn').hide();
+        $('#cetakNota').hide();
+        $('#selesaiBayar').hide();                
+        window.print();
+        setTimeout(function(){
+            $('#backBtn').show();
+            $('#cetakNota').show();
+            $('#selesaiBayar').show();  
+        },1000);
     }
 })
 

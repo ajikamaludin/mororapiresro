@@ -60,7 +60,7 @@ $data = tampilBayar();
                 </tbody>
                 </table>
                 <div class="row">
-                    <div class="col-6"><button class="btn btn-info" style="float:left;margin-right:5px;margin-top:125px;" onclick="window.location.href='dashboard_kasir.php'">Kembali</button></div>
+                    <div class="col-6"><button class="btn btn-info" id="backBtn" style="float:left;margin-right:5px;margin-top:125px;" onclick="window.location.href='dashboard_kasir.php'">Kembali</button></div>
                     <div class="col-6">
                     <label>Dibayar :</label>
                     <input type="text" class="form-control" style="margin-bottom:15px;" id="dibayar" min="500" max="10000000"/>

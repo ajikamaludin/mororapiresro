@@ -58,7 +58,7 @@ include "init/init.php";
         </ul>
         <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="logout.php">Keluar</a>
+            <a class="nav-link" href="#" id="keluarAdmin">Keluar</a>
         </li>
         </ul>
     </div>

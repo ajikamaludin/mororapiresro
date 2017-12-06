@@ -1183,7 +1183,13 @@ $(document).on('click', '#selesaiBayar', function () {
         });
     }
 })
-
+// keluar dari admin
+$(document).on('click', '#keluarAdmin', function () {
+    ask = confirm('Anda yakin ingin keluar ?');
+    if (ask) {
+        window.location.href = "logout.php";
+    }
+});
 // USER PESAN START
 //klik pesan di menu
 var jml = 1;
